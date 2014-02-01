@@ -40,7 +40,7 @@ srcs = [
 
 
 	# Planning components',
-	'planning/rrt.cpp',
+	'planning/RRTPlanner.cpp',
 	'planning/RRTTree.cpp',
 
 	# Restart plays
