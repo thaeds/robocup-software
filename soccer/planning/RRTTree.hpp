@@ -8,8 +8,8 @@
 namespace Planning
 {
 	/** base tree class for rrt trees
-	 *  Tree can be grown in different ways */
-	class Tree
+	 *  RRTTree can be grown in different ways */
+	class RRTTree
 	{
 		public:
 			
@@ -39,8 +39,8 @@ namespace Planning
 					Point* _parent;
 			};
 			
-			Tree();
-			virtual ~Tree();
+			RRTTree();
+			virtual ~RRTTree();
 			
 			/** cleanup the tree */
 			void clear();
@@ -78,12 +78,12 @@ namespace Planning
 	};
 	
 	/** tree that grows based on fixed distance step */
-	class FixedStepTree : public Tree
+	class FixedStepRRTTree : public RRTTree
 	{
 		public:
-			FixedStepTree() {}
+			FixedStepRRTTree() {}
 			
-			Tree::Point* extend(Geometry2d::Point pt, Tree::Point* base = 0);
+			RRTTree::Point* extend(Geometry2d::Point pt, RRTTree::Point* base = 0);
 			bool connect(Geometry2d::Point pt);
 	};
 }

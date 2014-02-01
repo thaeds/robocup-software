@@ -6,7 +6,7 @@
 #include <planning/Obstacle.hpp>
 #include <planning/Path.hpp>
 
-#include "Tree.hpp"
+#include "RRTTree.hpp"
 
 namespace Planning
 {
@@ -49,8 +49,8 @@ namespace Planning
 			float fixedPathLength() const { return _bestPath.length(); }
 			
 	protected:
-		FixedStepTree _fixedStepTree0;
-		FixedStepTree _fixedStepTree1;
+		FixedStepRRTTree _fixedStepTree0;
+		FixedStepRRTTree _fixedStepTree1;
 		
 		/** best goal point */
 		Geometry2d::Point _bestGoal;

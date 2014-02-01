@@ -52,7 +52,7 @@ void RRTPlanner::run(
 
 	if (obstacles && obstacles->hit(goal))
 	{
-		FixedStepTree goalTree;
+		FixedStepRRTTree goalTree;
 		goalTree.init(goal, obstacles);
 		goalTree.step = .1f;
 
@@ -63,7 +63,7 @@ void RRTPlanner::run(
 			Geometry2d::Point r = randomPoint();
 
 			//extend to a random point
-			Tree::Point* newPoint = goalTree.extend(r);
+			RRTTree::Point* newPoint = goalTree.extend(r);
 
 			//if the new point is not blocked
 			//it becomes the new goal
@@ -102,14 +102,14 @@ void RRTPlanner::run(
 	_fixedStepTree0.step = _fixedStepTree1.step = .15f;
 
 	/// run global position best path search
-	Tree* ta = &_fixedStepTree0;
-	Tree* tb = &_fixedStepTree1;
+	RRTTree* ta = &_fixedStepTree0;
+	RRTTree* tb = &_fixedStepTree1;
 
 	for (unsigned int i=0 ; i<_maxIterations; ++i)
 	{
 		Geometry2d::Point r = randomPoint();
 
-		Tree::Point* newPoint = ta->extend(r);
+		RRTTree::Point* newPoint = ta->extend(r);
 
 		if (newPoint)
 		{
@@ -143,8 +143,8 @@ void RRTPlanner::run(
 
 void RRTPlanner::makePath()
 {
-	Tree::Point* p0 = _fixedStepTree0.last();
-	Tree::Point* p1 = _fixedStepTree1.last();
+	RRTTree::Point* p0 = _fixedStepTree0.last();
+	RRTTree::Point* p1 = _fixedStepTree1.last();
 
 	//sanity check
 	if (!p0 || !p1 || p0->pos != p1->pos)

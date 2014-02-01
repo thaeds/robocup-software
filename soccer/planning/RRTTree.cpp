@@ -1,4 +1,4 @@
-#include "Tree.hpp"
+#include "RRTTree.hpp"
 
 #include <Utils.hpp>
 
@@ -10,7 +10,7 @@ using namespace Planning;
 using namespace std;
 
 //// Point ////
-Tree::Point::Point(const Geometry2d::Point& p, Tree::Point* parent) :
+RRTTree::Point::Point(const Geometry2d::Point& p, RRTTree::Point* parent) :
 	pos(p)
 {
 	_parent = parent;
@@ -23,29 +23,29 @@ Tree::Point::Point(const Geometry2d::Point& p, Tree::Point* parent) :
 	}
 }
 
-void Tree::Point::addEdges(std::list<Geometry2d::Segment>& edges)
+void RRTTree::Point::addEdges(std::list<Geometry2d::Segment>& edges)
 {
-	BOOST_FOREACH(Tree::Point* next, children)
+	BOOST_FOREACH(RRTTree::Point* next, children)
 	{
 		edges.push_back(Geometry2d::Segment(pos, next->pos));
 		next->addEdges(edges);
 	}
 }
 
-//// Tree ////
+//// RRTTree ////
 
-Tree::Tree()
+RRTTree::RRTTree()
 {
 	step = .1;
 	_obstacles = 0;
 }
 
-Tree::~Tree()
+RRTTree::~RRTTree()
 {
 	clear();
 }
 
-void Tree::clear()
+void RRTTree::clear()
 {
 	 _obstacles = 0;
 
@@ -57,7 +57,7 @@ void Tree::clear()
     points.clear();
 }
 
-void Tree::init(const Geometry2d::Point& start, const ObstacleGroup* obstacles)
+void RRTTree::init(const Geometry2d::Point& start, const ObstacleGroup* obstacles)
 {
 	clear();
 	
@@ -68,7 +68,7 @@ void Tree::init(const Geometry2d::Point& start, const ObstacleGroup* obstacles)
 	points.push_back(p);
 }
 
-void Tree::addPath(Planning::Path &path, Point* dest, const bool rev)
+void RRTTree::addPath(Planning::Path &path, Point* dest, const bool rev)
 {
 	list<Point *> points;
 
@@ -94,7 +94,7 @@ void Tree::addPath(Planning::Path &path, Point* dest, const bool rev)
 	}
 }
 
-Tree::Point* Tree::nearest(Geometry2d::Point pt)
+RRTTree::Point* RRTTree::nearest(Geometry2d::Point pt)
 {
 	float bestDistance = -1;
     Point *best = 0;
@@ -112,7 +112,7 @@ Tree::Point* Tree::nearest(Geometry2d::Point pt)
     return best;
 }
 
-Tree::Point* Tree::start() const
+RRTTree::Point* RRTTree::start() const
 {
 	if (points.empty())
 	{
@@ -122,7 +122,7 @@ Tree::Point* Tree::start() const
 	return points.front();
 }
 
-Tree::Point* Tree::last() const
+RRTTree::Point* RRTTree::last() const
 {
 	if (points.empty())
 	{
@@ -132,8 +132,8 @@ Tree::Point* Tree::last() const
 	return points.back();
 }
 
-//// Fixed Step Tree ////
-Tree::Point* FixedStepTree::extend(Geometry2d::Point pt, Tree::Point* base)
+//// Fixed Step RRT Tree ////
+RRTTree::Point* FixedStepRRTTree::extend(Geometry2d::Point pt, RRTTree::Point* base)
 {
 	//if we don't have a base point, try to find a close point
 	if (!base)
@@ -187,7 +187,7 @@ Tree::Point* FixedStepTree::extend(Geometry2d::Point pt, Tree::Point* base)
 	return p;
 }
 
-bool FixedStepTree::connect(Geometry2d::Point pt)
+bool FixedStepRRTTree::connect(Geometry2d::Point pt)
 {
 	//try to reach the goal pt
 	const unsigned int maxAttemps = 50;
