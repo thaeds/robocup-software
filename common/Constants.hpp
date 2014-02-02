@@ -7,18 +7,26 @@
 /// all times in seconds
 /// all weights in kilograms
 
-// Number of identifiable robots on one team
+/// Number of identifiable robots on one team
 const size_t Num_Shells = 16;
 
-// Number of playing robots on one team
+/// Number of playing robots on one team
 const size_t Robots_Per_Team = 6;
 
 const float Ball_Diameter = 0.043f;
 const float Ball_Radius = Ball_Diameter/2.0f;
 const float Ball_Mass = 0.048f;
 
+///	For a labelled drawing of the field provided by the league, go here:
+///	http://robocupssl.cpe.ku.ac.th/rules:main
+
+///	The Field constants define the playable area
 const float Field_Length = 6.05f;
 const float Field_Width = 4.05f;
+
+///	the field border is not a playable area, it's just a border around the field
+///	If you're using it for calculations, you're doing something wrong - it should
+///	only be used for FieldView drawing purposes
 const float Field_Border = 0.25f;
 
 const float Field_LineWidth = 0.01f;
@@ -47,7 +55,7 @@ const float Floor_Width = Field_Width + 2.0 * Field_Border;
 const float Robot_Diameter = 0.180f;
 const float Robot_Radius = Robot_Diameter/2.0f;
 const float Robot_Height = 0.150f;
-const float Robot_MouthWidth = 0.10f;
+const float Robot_MouthWidth = 0.10f; //	FIXME: this is different depending on the robot
 
 /** constants for dot patterns */
 const float Dots_Small_Offset = 0.035;
