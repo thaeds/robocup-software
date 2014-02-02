@@ -39,7 +39,7 @@ int RRTTree::Point::depth() {
 
 RRTTree::RRTTree()
 {
-	step = .1;
+	setMaxIterations(100);
 }
 
 RRTTree::~RRTTree()

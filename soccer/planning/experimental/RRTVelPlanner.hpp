@@ -21,7 +21,7 @@ namespace Planning
 	 *     generated paths physically make sense for the robot.
 	 *
 	 * #2: The planner can accept a MotionStateSource as a goal instead
-	 *     of a static 2d point.  This allows us to do things like catching
+	 *     of a static MotionState.  This allows us to do things like catching
 	 *     a moving ball.
 	 *
 	 * #3: We account for moving robots.  Opponents are assumed to move in
@@ -71,17 +71,12 @@ namespace Planning
 		}
 
 		/**
-		 * The maximum number of random points in the state-space that we will
-		 * try before giving up on finding a path to the goal.
-		 */
-
-		/**
 		 * These place physical constraints on the paths that the planner will
 		 * generate.  Be sure to set them to appropriate values before calling
 		 * the run() method.
 		 */
 		float maxVelocity, maxAcceleration;
-
+		
 
 	protected:
 		float _timeStep;

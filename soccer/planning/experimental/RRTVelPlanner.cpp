@@ -49,15 +49,22 @@ Planning::Path *RRTVelPlanner::run(
 	//	FIXME: what if we can do a direct-shot from a to b?  return a path of size 2
 
 	//	at each iteration we pick a random Point in the tree and branch off from it
-	//	with a random acceleration applied for @timeStep time
-	for (int i = 0; i < maxIterations(); i++) {
+	//	with an acceleration applied for @timeStep time
+	for (int i = 0; i < _rrtTree.maxIterations(); i++) {
+		//	this is the point we're branching off from
 		Point<MotionState> pt = _rrtTree.randomPoint();
 
-		Vector2d acc = randomAcceleration();
+		Vector2d &currVel = pt.state().vel;
+
+		//	if we're below max speed, let's speed up!
+		if (currVel.mag() < maxVelocity) {
+
+		}
+
+		Vector2d acc;
 
 		Vector2d pt = //FIXME: apply acc to pt's state.
 
-		
 
 		//	see if the point is valid
 		if (coordinateIsOnField(pt)
