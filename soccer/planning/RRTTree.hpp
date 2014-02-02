@@ -11,7 +11,8 @@ namespace Planning
 	 * Base tree class for rrt trees
 	 * RRTTree can be grown in different ways
 	 *
-	 * An RRT tree searches a state space by randomly filling it in and connecting points
+	 * An RRT tree searches a state space by randomly filling it in and connecting
+	 * points to form a branching tree.
 	 *
 	 * The template parameter T is to specify the type that represents a state within
 	 * the state-space that the tree is searching.  This could be a Geometry2d::Point or
@@ -96,7 +97,7 @@ namespace Planning
 			 * @param base The Point to connect from.  If base == NULL, then
 			 *             the closest tree point is used
 			 */
-			virtual Point<T> *extend(Geometry2d::Point pt, Point<T> *base = NULL) = 0;
+			virtual Point<T> *extend(T state, Point<T> *base = NULL) = 0;
 			
 			/**
 			 * Attempts to connect @state into the tree by repeatedly calling extend()
@@ -127,14 +128,6 @@ namespace Planning
 			Point<T> *last() const;
 			
 			/**
-			 * Tree step size...interpreted differently for different trees.
-			 *
-			 * In the FixedStepRRTTree used in the position planner, represents
-			 * the max distance (in cm) that one Point can be to its neighbor.
-			 */
-			float step;
-			
-			/**
 			 * A list of all Point objects in the tree.
 			 */
 			std::list<Point<T> *> points;
@@ -146,11 +139,20 @@ namespace Planning
 	/**
 	 * Tree that grows based on fixed distance step
 	 */
-	class FixedStepRRTTree : public RRTTree {
+	template<typename T>
+	class FixedStepRRTTree : public RRTTree<T> {
 	public:
 		FixedStepRRTTree() {}
 		
-		RRTTree::Point* extend(Geometry2d::Point pt, RRTTree::Point* base = 0);
-		bool connect(Geometry2d::Point pt);
+		RRTTree::Point* extend(T state, RRTTree::Point<T>* base = NULL);
+		bool connect(T state);
+		
+		/**
+		 * Tree step size...interpreted differently for different trees.
+		 *
+		 * In the FixedStepRRTTree used in the position planner, represents
+		 * the max distance (in cm) that one Point can be to its neighbor.
+		 */
+		float step;
 	};
 }

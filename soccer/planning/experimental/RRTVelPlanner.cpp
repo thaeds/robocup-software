@@ -30,7 +30,7 @@ Vector2d RRTVelPlanner::randomAcceleration() {
 	float mag = drand48() * maxAcceleration;
 	float dir = drand48() * 2 * M_PI;
 
-	//	FIXME: create and return a 2d vector from these parameters
+	return Vector2d(mag*cosf(dir), mag*sinf(dir));
 }
 
 Planning::Path *RRTVelPlanner::run(
@@ -56,6 +56,8 @@ Planning::Path *RRTVelPlanner::run(
 		Vector2d acc = randomAcceleration();
 
 		Vector2d pt = //FIXME: apply acc to pt's state.
+
+		
 
 		//	see if the point is valid
 		if (coordinateIsOnField(pt)
