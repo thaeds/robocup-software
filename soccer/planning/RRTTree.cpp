@@ -9,7 +9,9 @@
 using namespace Planning;
 using namespace std;
 
-//// Point ////
+
+#pragma mark RRTTree::Point
+
 RRTTree::Point::Point(const T &state, RRTTree::Point *parent) :
 	pos(p)
 {
@@ -33,7 +35,7 @@ int RRTTree::Point::depth() {
 }
 
 
-//// RRTTree ////
+#pragma mark RRTTree
 
 RRTTree::RRTTree()
 {

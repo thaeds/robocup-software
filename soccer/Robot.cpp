@@ -634,13 +634,13 @@ void OurRobot::execute(const ObstacleGroup& global_obstacles) {
 		return;
 	}
 
-	// create new a new path for comparision
+	// create a new path for comparision
 	Planning::Path rrt_path;
 	_planner->run(pos, angle, vel, *_delayed_goal, &full_obstacles, rrt_path);
 
 	const float rrt_path_len = rrt_path.length(0);
 
-	// check if goal is close to previous goal to reuse path
+	// check if goal is close enough to previous goal to reuse path
 	Geometry2d::Point::Optional dest = _path.destination();
 	if (dest && _delayed_goal->nearPoint(*dest, 0.1)) {
 		Planning::Path sliced_path;

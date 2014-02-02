@@ -44,9 +44,9 @@ namespace Planning
 				}
 
 				/**
-				 * Gets the number of ancestors (parent, paren'ts parent, etc) that
+				 * Gets the number of ancestors (parent, parent's parent, etc) that
 				 * the node has.
-				 * Returs 0 if it doesn't have a parent.
+				 * Returns 0 if it doesn't have a parent.
 				 */
 				int depth();
 
