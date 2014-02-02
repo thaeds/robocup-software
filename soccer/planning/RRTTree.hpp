@@ -44,6 +44,13 @@ namespace Planning
 				}
 
 				/**
+				 * Gets the number of ancestors (parent, paren'ts parent, etc) that
+				 * the node has.
+				 * Returs 0 if it doesn't have a parent.
+				 */
+				int depth();
+
+				/**
 				 * The @state property is the point in the state-space that this
 				 * Point/node represents.  Generally this is a vector (could be 2d, 3d, etc)
 				 */
@@ -70,7 +77,7 @@ namespace Planning
 			
 			void init(const Geometry2d::Point &start, const ObstacleGroup *obstacles);
 			
-			
+
 			bool RRTTree::stateIsValid(T state) {
 				return !_obstacles->hit(state);
 			}
@@ -78,7 +85,7 @@ namespace Planning
 			bool RRTTree::segmentIsValid(T from, T to) {
 				return !_obstacles->hit(Geometry2d::Segment(from, to));
 			}
-			
+
 			/** find the point of the tree closest to @state */
 			Point<T> *nearest(T state);
 			

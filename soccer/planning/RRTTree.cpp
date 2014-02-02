@@ -24,6 +24,14 @@ RRTTree::Point::Point(const T &state, RRTTree::Point *parent) :
 	}
 }
 
+int RRTTree::Point::depth() {
+	int n = 0;
+	for (Point<T> *ancestor = _parent; ancestor != NULL; ancestor = ancestor->_parent) {
+		n++;
+	}
+	return n;
+}
+
 
 //// RRTTree ////
 
