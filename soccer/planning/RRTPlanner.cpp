@@ -32,16 +32,15 @@ Planning::Path RRTPlanner::run(
 		const ObstacleGroup *obstacles)
 {
 	//clear any old path
-	path.clear();
+	_bestPath.clear();
 
 	_obstacles = obstacles;
 
 	// Simple case: no path
 	if (start == goal)
 	{
-		path.points.push_back(start);
-		_bestPath = path;
-		return;
+		_bestPath.push_back(start);
+		return _bestPath;
 	}
 
 	/// Locate a non blocked goal point and put it into @bestGoal
@@ -87,10 +86,9 @@ Planning::Path RRTPlanner::run(
 	/// simple case of direct shot
 	if (!obstacles->hit(Geometry2d::Segment(start, bestGoal)))
 	{
-		path.points.push_back(start);
-		path.points.push_back(bestGoal);
-		_bestPath = path;
-		return;
+		_bestPath.points.push_back(start);
+		_bestPath.points.push_back(bestGoal);
+		return _bestPath;
 	}
 
 	_fixedStepTree0.init(start, obstacles);
