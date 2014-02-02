@@ -26,13 +26,10 @@ RRTPlanner::RRTPlanner()
 	_maxIterations = 100;
 }
 
-void RRTPlanner::run(
+Planning::Path RRTPlanner::run(
 		const Geometry2d::Point &start,
-		const float angle, 
-		const Geometry2d::Point &vel,
 		const Geometry2d::Point &goal,
-		const ObstacleGroup *obstacles,
-		Planning::Path &path)
+		const ObstacleGroup *obstacles)
 {
 	//clear any old path
 	path.clear();
@@ -47,9 +44,8 @@ void RRTPlanner::run(
 		return;
 	}
 
-	/// Locate a non blocked goal point
-	Geometry2d::Point newGoal = goal;
-
+	/// Locate a non blocked goal point and put it into @bestGoal
+	Geometry2d::Point bestGoal;
 	if (obstacles && obstacles->hit(goal))
 	{
 		FixedStepRRTTree goalTree;
@@ -58,12 +54,12 @@ void RRTPlanner::run(
 
 		// The starting point is in an obstacle
 		// extend the tree until we find an unobstructed point
-		for (int i= 0 ; i< 100 ; ++i)
+		Geometry2d::Point newGoal = goal;
+		for (int i = 0; i< 100; ++i)
 		{
+			//	extend to a random point
 			Geometry2d::Point r = randomPoint();
-
-			//extend to a random point
-			RRTTree::Point* newPoint = goalTree.extend(r);
+			RRTTree::Point<T> *newPoint = goalTree.extend(r);
 
 			//if the new point is not blocked
 			//it becomes the new goal
@@ -76,50 +72,54 @@ void RRTPlanner::run(
 
 		/// see if the new goal is better than old one
 		/// must be at least a robot radius better else the move isn't worth it
-		const float oldDist = _bestGoal.distTo(goal);
+		const float oldDist = bestGoal.distTo(goal);
 		const float newDist = newGoal.distTo(goal) + Robot_Radius;
-		if (newDist < oldDist || obstacles->hit(_bestGoal))
+		if (newDist < oldDist || obstacles->hit(bestGoal))
 		{
-			_bestGoal = newGoal;
+			bestGoal = newGoal;
 		}
 	}
 	else
 	{
-		_bestGoal = goal;
+		bestGoal = goal;
 	}
 
 	/// simple case of direct shot
-	if (!obstacles->hit(Geometry2d::Segment(start, _bestGoal)))
+	if (!obstacles->hit(Geometry2d::Segment(start, bestGoal)))
 	{
 		path.points.push_back(start);
-		path.points.push_back(_bestGoal);
+		path.points.push_back(bestGoal);
 		_bestPath = path;
 		return;
 	}
 
 	_fixedStepTree0.init(start, obstacles);
-	_fixedStepTree1.init(_bestGoal, obstacles);
+	_fixedStepTree1.init(bestGoal, obstacles);
 	_fixedStepTree0.step = _fixedStepTree1.step = .15f;
 
 	/// run global position best path search
-	RRTTree* ta = &_fixedStepTree0;
-	RRTTree* tb = &_fixedStepTree1;
+	RRTTree *ta = &_fixedStepTree0;
+	RRTTree *tb = &_fixedStepTree1;
 
-	for (unsigned int i=0 ; i<_maxIterations; ++i)
+	//	run until we find a path or we hit the iteration limit
+	//	at each iteration, we pick a random point and attempt to connect it.
+	//	to ta and tb.  If it connects to both, we found a path and we exit the loop.
+	//	if it connects to just one of them, add it to the tree and continue iterating.
+	for (unsigned int i = 0; i < _maxIterations; ++i)
 	{
 		Geometry2d::Point r = randomPoint();
 
-		RRTTree::Point* newPoint = ta->extend(r);
+		RRTTree::Point<T> *newPoint = ta->extend(r);
 
 		if (newPoint)
 		{
-			//try to connect the other tree to this point
+			//	try to connect the other tree to this point
 			if (tb->connect(newPoint->pos))
 			{
-				//trees connected
-				//done with global path finding
-				//the path is from start to goal
-				//makePath will handle the rest
+				//	trees connected
+				//	done with global path finding
+				//	the path is from start to goal
+				//	makePath will handle the rest
 				break;
 			}
 		}
@@ -127,7 +127,8 @@ void RRTPlanner::run(
 		swap(ta, tb);
 	}
 
-	//see if we found a better global path
+	// see if we found a better global path
+	// the result is stored in _bestPath
 	makePath();
 
 	if (_bestPath.points.empty())
@@ -135,10 +136,9 @@ void RRTPlanner::run(
 		// FIXME: without these two lines, an empty path is returned which causes errors down the line.
 		path.points.push_back(start);
 		_bestPath = path;
-		return;
 	}
-	
-	path = _bestPath;
+
+	return new Path(_bestPath);
 }
 
 void RRTPlanner::makePath()
@@ -146,7 +146,8 @@ void RRTPlanner::makePath()
 	RRTTree::Point* p0 = _fixedStepTree0.last();
 	RRTTree::Point* p1 = _fixedStepTree1.last();
 
-	//sanity check
+	//	sanity check
+	//	if the trees are empty or not connected, abort
 	if (!p0 || !p1 || p0->pos != p1->pos)
 	{
 		return;
@@ -167,9 +168,9 @@ void RRTPlanner::makePath()
 	/// check the path against the old one
 	bool hit = (_obstacles) ? _bestPath.hit(*_obstacles) : false;
 
-	//TODO evaluate the old path based on the closest segment
-	//and the distance to the endpoint of that segment
-	//Otherwise, a new path will always be shorter than the old given we traveled some
+	// TODO evaluate the old path based on the closest segment
+	// and the distance to the endpoint of that segment
+	// Otherwise, a new path will always be shorter than the old given we traveled some
 
 	/// Conditions to use new path
 	/// 1. old path is empty
@@ -188,7 +189,7 @@ void RRTPlanner::makePath()
 	}
 }
 
-void RRTPlanner::optimize(Planning::Path &path, const ObstacleGroup *obstacles)
+static void RRTPlanner::optimize(Planning::Path &path, const ObstacleGroup *obstacles)
 {
 	unsigned int start = 0;
 
@@ -199,7 +200,7 @@ void RRTPlanner::optimize(Planning::Path &path, const ObstacleGroup *obstacles)
 	}
 
 	vector<Geometry2d::Point> pts;
-	pts.reserve(path.points.size());
+	pts.reserve(path.points.size());	//	for performance reasons, enlarge capacity of pts vector
 
 	// Copy all points that won't be optimized
 	vector<Geometry2d::Point>::const_iterator begin = path.points.begin();
@@ -214,13 +215,7 @@ void RRTPlanner::optimize(Planning::Path &path, const ObstacleGroup *obstacles)
 	// [start, start + 1] is guaranteed not to have a collision because it's already in the path.
 	for (unsigned int end = start + 2; end < path.points.size(); ++end)
 	{
-		ObstacleGroup newHit;
-		obstacles->hit(Geometry2d::Segment(path.points[start], path.points[end]), newHit);
-		try
-		{
-			set_difference(newHit.begin(), newHit.end(), hit.begin(), hit.end(), ExceptionIterator<ObstaclePtr>());
-		} catch (exception& e)
-		{
+		if ( obstacles->hit(Geometry2d::Segment(path.points[start], path.points[end])) ) {
 			start = end - 1;
 			goto again;
 		}

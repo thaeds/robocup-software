@@ -7,37 +7,60 @@
 
 namespace Planning
 {
-	/** base tree class for rrt trees
-	 *  RRTTree can be grown in different ways */
-	class RRTTree
-	{
+	/**
+	 * Base tree class for rrt trees
+	 * RRTTree can be grown in different ways
+	 *
+	 * An RRT tree searches a state space by randomly filling it in and connecting points
+	 *
+	 * The template parameter T is to specify the type that represents a state within
+	 * the state-space that the tree is searching.  This could be a Geometry2d::Point or
+	 * something else, but will generally be some sort of vector.
+	 */
+	template<typename T>
+	class RRTTree {
 		public:
 			
-			/** base class for a tree point */
-			class Point
-			{
-				public:
-					Point(const Geometry2d::Point& pos, Point* parent);
-					
-					//field position of the point
-					Geometry2d::Point pos;
-					
-					// Which obstacles contain this point
-					ObstacleGroup hit;
-					
-					//velocity information (used by dynamic tree)
-					Geometry2d::Point vel;
-					
-					bool leaf;
-					
-					inline Point* parent() const { return _parent; }
-					
-					void addEdges(std::list<Geometry2d::Segment>& edges);
-					
-				private:
-					std::list<Point *> children;
-					Point* _parent;
+			/**
+			 * Base class for an rrt tree node
+			 *
+			 * The template parameter T is for storing the state that the Point node represents.
+			 * The type T should implement the '-' operator for measuring the distance between 2 states.
+			 */
+			template<typename T>
+			class Point {
+			public:
+				Point(T &state, Point<T> *parent);
+				
+				Point<T>* parent() const {
+					return _parent;
+				}
+				
+				bool isLeaf() const {
+					return _leaf;
+				}
+				void setLeaf(bool isLeaf) {
+					_leaf = isLeaf;
+				}
+
+				/**
+				 * The @state property is the point in the state-space that this
+				 * Point/node represents.  Generally this is a vector (could be 2d, 3d, etc)
+				 */
+				T state() const {
+					return _state;
+				}
+				// void setState(T state) {
+				// 	_state = state;
+				// }
+
+			private:
+				T _state;
+				std::list<Point<T> *> _children;
+				Point<T> *_parent;
+				bool _leaf;
 			};
+
 			
 			RRTTree();
 			virtual ~RRTTree();
@@ -47,43 +70,80 @@ namespace Planning
 			
 			void init(const Geometry2d::Point &start, const ObstacleGroup *obstacles);
 			
-			/** find the point of the tree closest to @a pt */
-			Point* nearest(Geometry2d::Point pt);
 			
-			/** grow the tree in the direction of pt
-			 *  returns the new tree point.
-			 *  If base == 0, then the closest tree point is used */
-			virtual Point* extend(Geometry2d::Point pt, Point* base = 0) = 0;
+			bool RRTTree::stateIsValid(T state) {
+				return !_obstacles->hit(state);
+			}
+
+			bool RRTTree::segmentIsValid(T from, T to) {
+				return !_obstacles->hit(Geometry2d::Segment(from, to));
+			}
 			
-			/** attempt to connect the tree to the point */
-			virtual bool connect(const Geometry2d::Point pt) = 0;
+			/** find the point of the tree closest to @state */
+			Point<T> *nearest(T state);
 			
-			/** make a path from the dest point's root to the dest point
-			 *  If rev is true, the path will be from the dest point to its root */
+			/**
+			 * Grow the tree in the direction of @pt
+			 *
+			 * @return the new tree point (may be NULL if we hit Obstacles)
+			 * @param base The Point to connect from.  If base == NULL, then
+			 *             the closest tree point is used
+			 */
+			virtual Point<T> *extend(Geometry2d::Point pt, Point<T> *base = NULL) = 0;
+			
+			/**
+			 * Attempts to connect @state into the tree by repeatedly calling extend()
+			 * to connect a series of new Points in series from the closest point already
+			 * in the tree towards @state.
+			 *
+			 * @param state The state to try to connect into the tree
+			 * @return true if the connection was successfully made, false otherwise
+			 */
+			virtual bool connect(const T &state) = 0;
+			
+			/**
+			 * Make a path from the receiver's root point to the dest point
+			 *
+			 * @param path the Path object to append the series of points to
+			 * @param rev if true, the points added to @path will be from dest to the tree's root (in reverse order)
+			 */
 			void addPath(Planning::Path &path, Point* dest, const bool rev = false);
 			
-			/** returns the first point or 0 if none */
-			Point* start() const;
+			/**
+			 * @return The first point (the one passed to init()) or NULL if none
+			 */
+			Point<T> *start() const;
 			
-			/** last point added */
-			Point* last() const;
+			/**
+			 * @return The most recent Point added to the tree
+			 */
+			Point<T> *last() const;
 			
-			/** tree step size...interpreted differently for different trees */
+			/**
+			 * Tree step size...interpreted differently for different trees.
+			 *
+			 * In the FixedStepRRTTree used in the position planner, represents
+			 * the max distance (in cm) that one Point can be to its neighbor.
+			 */
 			float step;
 			
-			std::list<Point*> points;
+			/**
+			 * A list of all Point objects in the tree.
+			 */
+			std::list<Point<T> *> points;
 			
 		protected:
-			const ObstacleGroup* _obstacles;
+			// const ObstacleGroup* _obstacles;
 	};
 	
-	/** tree that grows based on fixed distance step */
-	class FixedStepRRTTree : public RRTTree
-	{
-		public:
-			FixedStepRRTTree() {}
-			
-			RRTTree::Point* extend(Geometry2d::Point pt, RRTTree::Point* base = 0);
-			bool connect(Geometry2d::Point pt);
+	/**
+	 * Tree that grows based on fixed distance step
+	 */
+	class FixedStepRRTTree : public RRTTree {
+	public:
+		FixedStepRRTTree() {}
+		
+		RRTTree::Point* extend(Geometry2d::Point pt, RRTTree::Point* base = 0);
+		bool connect(Geometry2d::Point pt);
 	};
 }

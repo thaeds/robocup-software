@@ -10,34 +10,26 @@ using namespace Planning;
 using namespace std;
 
 //// Point ////
-RRTTree::Point::Point(const Geometry2d::Point& p, RRTTree::Point* parent) :
+RRTTree::Point::Point(const T &state, RRTTree::Point *parent) :
 	pos(p)
 {
 	_parent = parent;
-	leaf = true;
+	_leaf = true;
+	_state = state;
 	
 	if (_parent)
 	{
-		_parent->children.push_back(this);
-		_parent->leaf = false;
+		_parent->_children.push_back(this);
+		_parent->_leaf = false;
 	}
 }
 
-void RRTTree::Point::addEdges(std::list<Geometry2d::Segment>& edges)
-{
-	BOOST_FOREACH(RRTTree::Point* next, children)
-	{
-		edges.push_back(Geometry2d::Segment(pos, next->pos));
-		next->addEdges(edges);
-	}
-}
 
 //// RRTTree ////
 
 RRTTree::RRTTree()
 {
 	step = .1;
-	_obstacles = 0;
 }
 
 RRTTree::~RRTTree()
@@ -47,61 +39,52 @@ RRTTree::~RRTTree()
 
 void RRTTree::clear()
 {
-	 _obstacles = 0;
-
     // Delete all points
-    BOOST_FOREACH(Point *pt, points)
-    {
-        delete pt;
-    }
+    for (Point<T> *pt : points) delete pt;
     points.clear();
 }
 
-void RRTTree::init(const Geometry2d::Point& start, const ObstacleGroup* obstacles)
+void RRTTree::init(const T &start)
 {
 	clear();
 	
-	_obstacles = obstacles;
-	
-	Point* p = new Point(start, 0);
-	_obstacles->hit(p->pos, p->hit);
+	Point<T> *p = new Point(start, NULL);
+	//	FIXME: throw exception if start isn't valid?
 	points.push_back(p);
 }
 
-void RRTTree::addPath(Planning::Path &path, Point* dest, const bool rev)
+void RRTTree::addPath(Planning::Path<T> &path, Point<T> *dest, const bool rev)
 {
-	list<Point *> points;
-
+	//	build a list of Points between @dest and the receiver's root Point
 	int n = 0;
+	list<Point<T> *> points;
 	while (dest)
 	{
-		if (rev)
-		{
+		if (rev) {
 			points.push_back(dest);
-		}
-		else
-		{
+		} else {
 			points.push_front(dest);
 		}
 		dest = dest->parent();
 		++n;
 	}
 	
+	//	add the points in @points to the given Path
 	path.points.reserve(path.points.size() + n);
-	BOOST_FOREACH(Point *pt, points)
+	for (Point<T> *pt : points)
 	{
-		path.points.push_back(pt->pos);
+		path.points.push_back(pt->state());
 	}
 }
 
-RRTTree::Point* RRTTree::nearest(Geometry2d::Point pt)
+RRTTree::Point<T> *RRTTree::nearest(T &state)
 {
 	float bestDistance = -1;
-    Point *best = 0;
+    Point<T> *best = NULL;
     
-    BOOST_FOREACH(Point* other, points)
+    for (Point<T> *other : points)
     {
-        float d = (other->pos - pt).magsq();
+        float d = powf(other.state().distTo(state), 2);	//	magnitude squared
         if (bestDistance < 0 || d < bestDistance)
         {
             bestDistance = d;
@@ -112,105 +95,88 @@ RRTTree::Point* RRTTree::nearest(Geometry2d::Point pt)
     return best;
 }
 
-RRTTree::Point* RRTTree::start() const
+RRTTree::Point<T> *RRTTree::start() const
 {
 	if (points.empty())
 	{
-		return 0;
+		return NULL;
 	}
 	
 	return points.front();
 }
 
-RRTTree::Point* RRTTree::last() const
+RRTTree::Point<T> *RRTTree::last() const
 {
 	if (points.empty())
 	{
-		return 0;
+		return NULL;
 	}
 	
 	return points.back();
 }
 
-//// Fixed Step RRT Tree ////
-RRTTree::Point* FixedStepRRTTree::extend(Geometry2d::Point pt, RRTTree::Point* base)
+
+# pragma mark FixedStepRRTTree
+
+RRTTree::Point<T> *FixedStepRRTTree::extend(T target, RRTTree::Point<T> *base)
 {
-	//if we don't have a base point, try to find a close point
+	//	if we weren't given a base point, try to find a close point
 	if (!base)
 	{
-		base = nearest(pt);
+		base = nearest(target);
 		if (!base)
 		{
-			return 0;
+			return NULL;
 		}
 	}
 	
-	Geometry2d::Point delta = pt - base->pos;
+	T delta = target - base->target;
 	float d = delta.mag();
 	
-	Geometry2d::Point pos;
-	if (d < step)
-	{
-		pos = pt;
-	}
-	else
-	{
-		pos = base->pos + delta / d * step;
-	}
-	
-	// Check for obstacles.
-	
-	// moveHit is the set of obstacles that this move touches.
-	// If this move touches any obstacles that the starting point didn't already touch,
-	// it has entered an obstacle and will be rejected.
-	ObstacleGroup moveHit;
-	if (_obstacles->hit(Geometry2d::Segment(pos, base->pos), moveHit))
-	{
-		// We only care if there are any items in moveHit that are not in point->hit, so
-		// we don't store the result of set_difference.
-		try
-		{
-			set_difference(moveHit.begin(), moveHit.end(), base->hit.begin(), 
-				base->hit.end(), ExceptionIterator<ObstaclePtr>());
-		} catch (exception& e)
-		{
-			// We hit a new obstacle
-			return 0;
-		}
+	//	@intermediateState is the new point we will add to the tree
+	//	we make sure its distance from @target is <= step
+	T intermediateState;
+	if (d < step) {
+		intermediateState = target;
+	} else {
+		//	go in the direction of @target, but not as far
+		intermediateState = base->state + delta / d * step;
 	}
 	
-	// Allow this point to be added to the tree
-	Point* p = new Point(pos, base);
-	_obstacles->hit(p->pos, p->hit);
+	//	abort if the segment isn't valid
+	if (!segmentIsValid(base->state, target)) {
+		return false;
+	}
+	
+	// Add this point to the tree
+	Point<T> *p = new Point<T>(intermediateState, base);
 	points.push_back(p);
-	
 	return p;
 }
 
-bool FixedStepRRTTree::connect(Geometry2d::Point pt)
+bool FixedStepRRTTree::connect(T state)
 {
-	//try to reach the goal pt
+	//	try to reach the goal state
 	const unsigned int maxAttemps = 50;
 	
-	Point* from = 0;
-	
-	for (unsigned int i=0 ; i<maxAttemps ; ++i)
+	Point<T> *from = NULL;
+	for (unsigned int i = 0; i < maxAttemps; ++i)
 	{
-		Point* newPt = extend(pt, from);
+		Point<T> *newPoint = extend(state, from);
 		
-		//died
-		if (!newPt)
-		{
-			return false;
-		}
+		//	there's not a direct path from @from to @state; abort
+		if (!newPoint) return false;
 		
-		if (newPt->pos == pt)
+		//	we found a connection
+		if (newPoint->state == state)
 		{
 			return true;
 		}
 		
-		from = newPt;
+		//	we found a waypoint to use, but we're not there yet
+		from = newPoint;
 	}
 	
+	//	we used all of our attempts and didn't find a connection; abort
 	return false;
 }
