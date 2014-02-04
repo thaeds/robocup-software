@@ -1,4 +1,4 @@
-#include "RRTTree.hpp"
+#include "Tree.hpp"
 
 #include <Utils.hpp>
 
@@ -6,13 +6,13 @@
 #include <iostream>
 #include <boost/foreach.hpp>
 
-using namespace Planning;
+using namespace RRT;
 using namespace std;
 
 
-#pragma mark RRTTree::Point
+#pragma mark Tree::Point
 
-RRTTree::Point::Point(const T &state, RRTTree::Point *parent) :
+Tree::Point::Point(const T &state, Tree::Point *parent) :
 	pos(p)
 {
 	_parent = parent;
@@ -26,7 +26,7 @@ RRTTree::Point::Point(const T &state, RRTTree::Point *parent) :
 	}
 }
 
-int RRTTree::Point::depth() {
+int Tree::Point::depth() {
 	int n = 0;
 	for (Point<T> *ancestor = _parent; ancestor != NULL; ancestor = ancestor->_parent) {
 		n++;
@@ -35,35 +35,37 @@ int RRTTree::Point::depth() {
 }
 
 
-#pragma mark RRTTree
+#pragma mark Tree
 
-RRTTree::RRTTree()
+Tree::Tree()
 {
 	setMaxIterations(100);
 }
 
-RRTTree::~RRTTree()
+Tree::~Tree()
 {
-	clear();
+	reset();
 }
 
-void RRTTree::clear()
+void Tree::reset()
 {
     // Delete all points
     for (Point<T> *pt : points) delete pt;
     points.clear();
 }
 
-void RRTTree::init(const T &start)
+void Tree::run(const T &start)
 {
-	clear();
+	reset();
 	
 	Point<T> *p = new Point(start, NULL);
-	//	FIXME: throw exception if start isn't valid?
+	//	FIXME: throw exception if start isn't valid? - NO - see comment at top of header
 	points.push_back(p);
+
+	//	FIXME: run the algorithm here!
 }
 
-void RRTTree::addPath(Planning::Path<T> &path, Point<T> *dest, const bool rev)
+void Tree::getPath(Planning::Path<T> &path, Point<T> *dest, const bool rev)
 {
 	//	build a list of Points between @dest and the receiver's root Point
 	int n = 0;
@@ -87,7 +89,7 @@ void RRTTree::addPath(Planning::Path<T> &path, Point<T> *dest, const bool rev)
 	}
 }
 
-RRTTree::Point<T> *RRTTree::nearest(T &state)
+Tree::Point<T> *Tree::nearest(T &state)
 {
 	float bestDistance = -1;
     Point<T> *best = NULL;
@@ -105,7 +107,7 @@ RRTTree::Point<T> *RRTTree::nearest(T &state)
     return best;
 }
 
-RRTTree::Point<T> *RRTTree::start() const
+Tree::Point<T> *Tree::rootPoint() const
 {
 	if (points.empty())
 	{
@@ -115,7 +117,7 @@ RRTTree::Point<T> *RRTTree::start() const
 	return points.front();
 }
 
-RRTTree::Point<T> *RRTTree::last() const
+Tree::Point<T> *Tree::lastPoint() const
 {
 	if (points.empty())
 	{
@@ -126,9 +128,9 @@ RRTTree::Point<T> *RRTTree::last() const
 }
 
 
-# pragma mark FixedStepRRTTree
+# pragma mark FixedStepTree
 
-RRTTree::Point<T> *FixedStepRRTTree::extend(T target, RRTTree::Point<T> *base)
+Tree::Point<T> *FixedStepTree::extend(T target, Tree::Point<T> *base)
 {
 	//	if we weren't given a base point, try to find a close point
 	if (!base)
@@ -164,7 +166,7 @@ RRTTree::Point<T> *FixedStepRRTTree::extend(T target, RRTTree::Point<T> *base)
 	return p;
 }
 
-bool FixedStepRRTTree::connect(T state)
+bool FixedStepTree::connect(T state)
 {
 	//	try to reach the goal state
 	const unsigned int maxAttemps = 50;
