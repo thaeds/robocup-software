@@ -1,18 +1,15 @@
 #include "Tree.hpp"
 
-#include <Utils.hpp>
-
 #include <stdio.h>
 #include <iostream>
-#include <boost/foreach.hpp>
 
 using namespace RRT;
 using namespace std;
 
 
-#pragma mark Tree::Point
+#pragma mark Node
 
-Tree::Point::Point(const T &state, Tree::Point *parent) :
+Node::Node(const T &state, Node *parent) :
 	pos(p)
 {
 	_parent = parent;
@@ -26,9 +23,9 @@ Tree::Point::Point(const T &state, Tree::Point *parent) :
 	}
 }
 
-int Tree::Point::depth() {
+int Node::depth() {
 	int n = 0;
-	for (Point<T> *ancestor = _parent; ancestor != NULL; ancestor = ancestor->_parent) {
+	for (Node<T> *ancestor = _parent; ancestor != NULL; ancestor = ancestor->_parent) {
 		n++;
 	}
 	return n;
@@ -50,7 +47,7 @@ Tree::~Tree()
 void Tree::reset()
 {
     // Delete all points
-    for (Point<T> *pt : points) delete pt;
+    for (Node<T> *pt : points) delete pt;
     points.clear();
 }
 
@@ -58,18 +55,18 @@ void Tree::run(const T &start)
 {
 	reset();
 	
-	Point<T> *p = new Point(start, NULL);
+	Node<T> *p = new Node(start, NULL);
 	//	FIXME: throw exception if start isn't valid? - NO - see comment at top of header
 	points.push_back(p);
 
 	//	FIXME: run the algorithm here!
 }
 
-void Tree::getPath(Planning::Path<T> &path, Point<T> *dest, const bool rev)
+void Tree::getPath(Planning::Path<T> &path, Node<T> *dest, const bool rev)
 {
-	//	build a list of Points between @dest and the receiver's root Point
+	//	build a list of Nodes between @dest and the receiver's root Node
 	int n = 0;
-	list<Point<T> *> points;
+	list<Node<T> *> points;
 	while (dest)
 	{
 		if (rev) {
@@ -83,18 +80,18 @@ void Tree::getPath(Planning::Path<T> &path, Point<T> *dest, const bool rev)
 	
 	//	add the points in @points to the given Path
 	path.points.reserve(path.points.size() + n);
-	for (Point<T> *pt : points)
+	for (Node<T> *pt : points)
 	{
 		path.points.push_back(pt->state());
 	}
 }
 
-Tree::Point<T> *Tree::nearest(T &state)
+Node<T> *Tree::nearest(T &state)
 {
 	float bestDistance = -1;
-    Point<T> *best = NULL;
+    Node<T> *best = NULL;
     
-    for (Point<T> *other : points)
+    for (Node<T> *other : points)
     {
         float d = powf(other.state().distTo(state), 2);	//	magnitude squared
         if (bestDistance < 0 || d < bestDistance)
@@ -107,7 +104,7 @@ Tree::Point<T> *Tree::nearest(T &state)
     return best;
 }
 
-Tree::Point<T> *Tree::rootPoint() const
+Node<T> *Tree::rootNode() const
 {
 	if (points.empty())
 	{
@@ -117,7 +114,7 @@ Tree::Point<T> *Tree::rootPoint() const
 	return points.front();
 }
 
-Tree::Point<T> *Tree::lastPoint() const
+Node<T> *Tree::lastNode() const
 {
 	if (points.empty())
 	{
@@ -130,7 +127,7 @@ Tree::Point<T> *Tree::lastPoint() const
 
 # pragma mark FixedStepTree
 
-Tree::Point<T> *FixedStepTree::extend(T target, Tree::Point<T> *base)
+Node<T> *FixedStepTree::extend(T target, Node<T> *base)
 {
 	//	if we weren't given a base point, try to find a close point
 	if (!base)
@@ -161,7 +158,7 @@ Tree::Point<T> *FixedStepTree::extend(T target, Tree::Point<T> *base)
 	}
 	
 	// Add this point to the tree
-	Point<T> *p = new Point<T>(intermediateState, base);
+	Node<T> *p = new Node<T>(intermediateState, base);
 	points.push_back(p);
 	return p;
 }
@@ -171,22 +168,22 @@ bool FixedStepTree::connect(T state)
 	//	try to reach the goal state
 	const unsigned int maxAttemps = 50;
 	
-	Point<T> *from = NULL;
+	Node<T> *from = NULL;
 	for (unsigned int i = 0; i < maxAttemps; ++i)
 	{
-		Point<T> *newPoint = extend(state, from);
+		Node<T> *newNode = extend(state, from);
 		
 		//	there's not a direct path from @from to @state; abort
-		if (!newPoint) return false;
+		if (!newNode) return false;
 		
 		//	we found a connection
-		if (newPoint->state == state)
+		if (newNode->state == state)
 		{
 			return true;
 		}
 		
 		//	we found a waypoint to use, but we're not there yet
-		from = newPoint;
+		from = newNode;
 	}
 	
 	//	we used all of our attempts and didn't find a connection; abort

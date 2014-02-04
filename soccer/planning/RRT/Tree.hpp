@@ -10,15 +10,15 @@ namespace RRT
 	/**
 	 * Base class for an rrt tree node
 	 *
-	 * The template parameter T is for storing the state that the Point node represents.
+	 * The template parameter T is for storing the state that the Node node represents.
 	 * The type T should implement the '-' operator for measuring the distance between 2 states.
 	 */
 	template<typename T>
-	class Point {
+	class Node {
 	public:
-		Point(T &state, Point<T> *parent);
+		Node(T &state, Node<T> *parent);
 		
-		Point<T>* parent() const {
+		Node<T>* parent() const {
 			return _parent;
 		}
 		
@@ -38,7 +38,7 @@ namespace RRT
 
 		/**
 		 * The @state property is the point in the state-space that this
-		 * Point/node represents.  Generally this is a vector (could be 2d, 3d, etc)
+		 * Node/node represents.  Generally this is a vector (could be 2d, 3d, etc)
 		 */
 		T &state() const {
 			return _state;
@@ -46,8 +46,8 @@ namespace RRT
 
 	private:
 		T _state;
-		std::list<Point<T> *> _children;
-		Point<T> *_parent;
+		std::list<Node<T> *> _children;
+		Node<T> *_parent;
 		bool _leaf;
 	};
 
@@ -65,10 +65,10 @@ namespace RRT
 	 * satisifes all of the constraints, a solution is found and returned.
 	 *
 	 * The template parameter T is to specify the type that represents a state within
-	 * the state-space that the tree is searching.  This could be a Geometry2d::Point or
+	 * the state-space that the tree is searching.  This could be a Geometry2d::Node or
 	 * something else, but will generally be some sort of vector.
 	 */
-	template<typename T, typename P = Point<T> >
+	template<typename T, typename P = Node<T> >
 	class Tree {
 	public:
 		Tree();
@@ -76,7 +76,7 @@ namespace RRT
 
 
 		/**
-		 * Removes all Points from the tree so it can be run() again.
+		 * Removes all Nodes from the tree so it can be run() again.
 		 */
 		void reset();
 		
@@ -102,20 +102,20 @@ namespace RRT
 		/**
 		 * Find the point of the tree closest to @state
 		 */
-		Point<T> *nearest(T state);
+		Node<T> *nearest(T state);
 		
 		/**
 		 * Grow the tree in the direction of @pt
 		 *
-		 * @return the new tree Point (may be NULL if we hit Obstacles)
-		 * @param base The Point to connect from.  If base == NULL, then
+		 * @return the new tree Node (may be NULL if we hit Obstacles)
+		 * @param base The Node to connect from.  If base == NULL, then
 		 *             the closest tree point is used
 		 */
-		virtual Point<T> *extend(T state, Point<T> *base = NULL) = 0;
+		virtual Node<T> *extend(T state, Node<T> *base = NULL) = 0;
 		
 		/**
 		 * Attempts to connect @state into the tree by repeatedly calling extend()
-		 * to connect a series of new Points in series from the closest point already
+		 * to connect a series of new Nodes in series from the closest point already
 		 * in the tree towards @state.
 		 *
 		 * @param state The state to try to connect into the tree
@@ -130,17 +130,17 @@ namespace RRT
 		 * @param reverse if true, the points added to @path will be from dest to the tree's root
 		 */
 		//	FIXME: remove dependency on Path
-		void getPath(Planning::Path &path, Point<T> *dest, const bool reverse = false);
+		void getPath(Planning::Path &path, Node<T> *dest, const bool reverse = false);
 		
 		/**
 		 * @return The first point (the one passed to init()) or NULL if none
 		 */
-		Point<T> *rootPoint() const;
+		Node<T> *rootNode() const;
 		
 		/**
-		 * @return The most recent Point added to the tree
+		 * @return The most recent Node added to the tree
 		 */
-		Point<T> *lastPoint() const;
+		Node<T> *lastNode() const;
 
 
 		//
@@ -150,7 +150,7 @@ namespace RRT
 		/**
 		 * This callback determines if a given transition is valid.
 		 */
-		bool [](Point<T> startPt, T &newState) transitionValidCallback;
+		bool [](Node<T> startPt, T &newState) transitionValidCallback;
 
 		/**
 		 * Override this to provide a way for the Tree to generate random states.
@@ -166,18 +166,18 @@ namespace RRT
 		float [](T &stateA, T &stateB) distanceCallback;
 
 		/**
-		 * Callback to see if a given Point is at or near enough to the goal.  Note
-		 * that the Tree never asks where the goal is, only if a given Point is near
+		 * Callback to see if a given Node is at or near enough to the goal.  Note
+		 * that the Tree never asks where the goal is, only if a given Node is near
 		 * 
 		 */
-		bool [](Point<T> *pt) pointNearGoal;
+		bool [](Node<T> *pt) pointNearGoal;
 
 
 	protected:
 		/**
-		 * A list of all Point objects in the tree.
+		 * A list of all Node objects in the tree.
 		 */
-		std::list<Point<T> *> points;
+		std::list<Node<T> *> points;
 
 		int _maxIterations;
 	};
@@ -190,14 +190,14 @@ namespace RRT
 	public:
 		FixedStepTree() {}
 		
-		Tree::Point* extend(T state, Tree::Point<T>* base = NULL);
+		Tree::Node* extend(T state, Tree::Node<T>* base = NULL);
 		bool connect(T state);
 		
 		/**
 		 * Tree step size...interpreted differently for different trees.
 		 *
 		 * In the FixedStepTree used in the position planner, represents
-		 * the max distance (in cm) that one Point can be to its neighbor.
+		 * the max distance (in cm) that one Node can be to its neighbor.
 		 */
 		float step;
 	};
