@@ -817,12 +817,28 @@ static void debug_charge()
 }
 static const write_uint_t write_monitor_charge = {(unsigned int *)&debug_update, (unsigned int)debug_charge};
 
+/*
 static void debug_ball()
 {
 	printf("0x%03x 0x%03x %4d\n", ball_sense_light, ball_sense_dark, ball_sense_light - ball_sense_dark);
 }
 static const write_uint_t write_monitor_ball = {(unsigned int *)&debug_update, (unsigned int)debug_ball};
+*/
 
+static void cmd_ball_sense(int argc, const char *argv[], void *arg){
+	while(TRUE){
+		//Erases the last print statements
+		int numOfLines = 5;
+		for(int i = 0; i < numOfLines; i++)
+			printf("\033[F\033[J");
+		printf("Reading(led on): %d\n", ball_sense_light);
+		printf("Reading(led off): %d\n", ball_sense_dark);
+		printf("Difference: %d\n", ball_sense_light - ball_sense_dark);
+		printf("Threshold: %d\n", Unbroken_Beam);
+		printf("HasBall: %d", have_Ball);
+	}	
+
+}
 static const write_uint_t write_fpga_off = {&AT91C_BASE_PIOA->PIO_CODR, MCU_PROGB};
 static const write_uint_t write_reset = {AT91C_RSTC_RCR, 0xa5000005};
 
@@ -863,7 +879,7 @@ const command_t commands[] =
 	{"drive_mode", cmd_drive_mode},
 	{"monitor_charge", cmd_write_uint, (void *)&write_monitor_charge},
 	{"imu_test", cmd_imu_test},
-	{"monitor_ball", cmd_write_uint, (void *)&write_monitor_ball},
+	{"ball_sense", cmd_ball_sense},
 
 	// End of list placeholder
 	{0, 0}

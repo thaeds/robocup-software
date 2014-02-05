@@ -5,6 +5,9 @@
 // Zero if we don't have the ball or the ball sensor is suspect.
 extern int have_ball;
 
+//
+extern int Unbroken_Beam;
+
 // Most recent detector readings for LED on and off.
 // The minimum value is zero (no light or broken detector wires).
 // The maximum value is 0x3ff (very bright light or shorted detector wires).
