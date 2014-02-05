@@ -827,15 +827,23 @@ static const write_uint_t write_monitor_ball = {(unsigned int *)&debug_update, (
 
 static void cmd_ball_sense(int argc, const char *argv[], void *arg){
 	while(TRUE){
+		delay_ms(5);
+
+        update_ball_sensor();
+
+
 		//Erases the last print statements
-		int numOfLines = 5;
+        int numOfLines = 6;
 		for(int i = 0; i < numOfLines; i++)
 			printf("\033[F\033[J");
+
+        
 		printf("Reading(led on): %d\n", ball_sense_light);
 		printf("Reading(led off): %d\n", ball_sense_dark);
 		printf("Difference: %d\n", ball_sense_light - ball_sense_dark);
 		printf("Threshold: %d\n", Unbroken_Beam);
-		printf("HasBall: %d", have_ball);
+		printf("HasBall: %d\n", have_ball);
+        printf("\n");
 	}	
 
 }
