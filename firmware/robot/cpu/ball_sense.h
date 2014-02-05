@@ -6,7 +6,7 @@
 extern int have_ball;
 
 //
-extern int Unbroken_Beam;
+extern const int Unbroken_Beam;
 
 // Most recent detector readings for LED on and off.
 // The minimum value is zero (no light or broken detector wires).

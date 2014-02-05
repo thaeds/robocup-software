@@ -835,7 +835,7 @@ static void cmd_ball_sense(int argc, const char *argv[], void *arg){
 		printf("Reading(led off): %d\n", ball_sense_dark);
 		printf("Difference: %d\n", ball_sense_light - ball_sense_dark);
 		printf("Threshold: %d\n", Unbroken_Beam);
-		printf("HasBall: %d", have_Ball);
+		printf("HasBall: %d", have_ball);
 	}	
 
 }
