@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['_5favoidballradius',['_avoidBallRadius',['../class_our_robot.html#a3c4be933a623940fe86c44c3a3a3f5d4',1,'OurRobot']]],
   ['_5fbestgoal',['_bestGoal',['../class_planning_1_1_r_r_t_planner.html#a3f92c0ebfbc1f94d4b6926355c195d63',1,'Planning::RRTPlanner']]],
   ['_5fbestpath',['_bestPath',['../class_planning_1_1_r_r_t_planner.html#ad32d32b8ab923ed7be9790fe63ecde6d',1,'Planning::RRTPlanner']]],
   ['_5fcounter',['_counter',['../class_referee_module.html#a6fe8b1ab1a9453746ba2e09d0202c5a0',1,'RefereeModule']]],
@@ -11,6 +12,11 @@ var searchData=
   ['_5fmutex',['_mutex',['../class_vision_receiver.html#a413fbf954ac882d2cf7a2381b7a3df22',1,'VisionReceiver']]],
   ['_5fobstacles',['_obstacles',['../class_planning_1_1_r_r_t_planner.html#a4141cb2e18b71c7dbb5f356e9398fe3e',1,'Planning::RRTPlanner']]],
   ['_5fpasser',['_passer',['../class_gameplay_1_1_plays_1_1_demo_passing.html#ab02568dae38c8930cb08c20d8d6047b0',1,'Gameplay::Plays::DemoPassing']]],
+  ['_5fpath',['_path',['../class_our_robot.html#a6706ca9149dc0fb355df118293c559dc',1,'OurRobot']]],
+  ['_5fplanner',['_planner',['../class_our_robot.html#ab00b3c177e27ce79b68f77f9ecd5de56',1,'OurRobot']]],
+  ['_5fself_5favoid_5fmask',['_self_avoid_mask',['../class_our_robot.html#a19192634cf02c79cbaf29b35d999a52d',1,'OurRobot']]],
+  ['_5fstopatend',['_stopAtEnd',['../class_our_robot.html#a5b841b4ddff2857398b68822ec274ca6',1,'OurRobot']]],
   ['_5ftimer',['_timer',['../class_gameplay_1_1_plays_1_1_kicker_endurance_test.html#a30d9e9f61b983d60e07e79a34bbdd6cc',1,'Gameplay::Plays::KickerEnduranceTest']]],
-  ['_5fuse_5fchipper',['_use_chipper',['../class_gameplay_1_1_plays_1_1_kicker_endurance_test.html#ae302c65a90cc1b65138224da19a44daf',1,'Gameplay::Plays::KickerEnduranceTest']]]
+  ['_5fuse_5fchipper',['_use_chipper',['../class_gameplay_1_1_plays_1_1_kicker_endurance_test.html#ae302c65a90cc1b65138224da19a44daf',1,'Gameplay::Plays::KickerEnduranceTest']]],
+  ['_5fusespathplanning',['_usesPathPlanning',['../class_our_robot.html#ab0263c886dd0ba1baa15d3d842f5d5bd',1,'OurRobot']]]
 ];

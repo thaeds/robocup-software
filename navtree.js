@@ -1,11 +1,17 @@
 var NAVTREE =
 [
-  [ "RoboCup", "index.html", [
+  [ "RoboCup SSL", "index.html", [
+    [ "Gameplay", "md_soccer_doc__gameplay.html", null ],
+    [ "Motion Control", "md_soccer_doc__motion_control.html", null ],
+    [ "Soccer", "md_soccer_doc__soccer.html", null ],
+    [ "Vision", "md_soccer_doc__vision.html", null ],
+    [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ]
       ] ]
     ] ],
     [ "Classes", null, [
@@ -13,7 +19,7 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
@@ -27,13 +33,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_field_view.html#abb9fe0e90365ffd140802c830776ce69",
-"class_gameplay_1_1_behaviors_1_1_mark.html#ab9d56d65419a65ddbfd8436a58e71580",
-"class_gameplay_1_1_plays_1_1_cat_pass_demo.html#ab0515cebbf3dc74322741dfb9051829d",
-"class_gameplay_1_1_plays_1_1_our_kickoff.html#ad897a1fb38d87c613b1ed321a1026f43",
-"class_geometry2d_1_1_point.html#a96036039e521aa1d06350af87a0e50cf",
-"class_polygon_obstacle.html#a5f13f8cf9f65326d852c09cff4739826",
-"class_vision_packet.html#ab5fa431f2d132aa7475f345a4bd1cc1c"
+"class_f_i_r_filter.html#af0bb4ddfe2e4a19bf50ca50850d0cb41",
+"class_gameplay_1_1_behaviors_1_1_kickoff.html#ad4c5ad2489db5d016bfb752e5ddd79d1a9d527704ffce0f84a3a8afe6fbf71e39",
+"class_gameplay_1_1_plays_1_1_basic_offense122.html",
+"class_gameplay_1_1_plays_1_1_our_goal_kick2.html#a553a247a2f45ee52258779b279a3cafb",
+"class_geometry2d_1_1_point.html#a0c53cdd9a83d4784f348d10ba59f09f1",
+"class_our_robot.html#a6107470647500eaca4c8775895b0b51e",
+"class_referee_tab.html#a855ab80d2a04a83b29741cd61f0b25b3",
+"struct_processor_1_1_status.html#ac301aef1f2e612a6371e77d6efbd243e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

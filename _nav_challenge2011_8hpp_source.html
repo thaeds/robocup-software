@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>RoboCup: soccer/gameplay/plays/demo_plays/NavChallenge2011.hpp Source File</title>
+<title>RoboCup SSL: soccer/gameplay/plays/demo_plays/NavChallenge2011.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,10 +29,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">RoboCup
-   &#160;<span id="projectnumber">0.4</span>
+   <div id="projectname">RoboCup SSL
    </div>
-   <div id="projectbrief">RoboCupControlSoftwareandFirmware</div>
+   <div id="projectbrief">Control Software and Firmware</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('_nav_challenge2011_8hpp_source.html','
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,36 +107,35 @@ $(document).ready(function(){initNavTree('_nav_challenge2011_8hpp_source.html','
 <div class="title">NavChallenge2011.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;gameplay/Play.hpp&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span>Gameplay</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">namespace </span>Plays</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        {</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html">   36</a></span>&#160;                <span class="keyword">class </span><a class="code" href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html">NavChallenge2011</a>: <span class="keyword">public</span> <a class="code" href="class_gameplay_1_1_play.html">Play</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                <a class="code" href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html">NavChallenge2011</a>(<a class="code" href="class_gameplay_1_1_gameplay_module.html">GameplayModule</a> *gameplay);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                                <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html#a3cbf30915a9a823f6494e613c2280868">run</a>();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                };</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;gameplay/Play.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Gameplay</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">namespace </span>Plays</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html">   35</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html">NavChallenge2011</a>: <span class="keyword">public</span> <a class="code" href="class_gameplay_1_1_play.html">Play</a></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                <a class="code" href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html">NavChallenge2011</a>(<a class="code" href="class_gameplay_1_1_gameplay_module.html">GameplayModule</a> *gameplay);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html#a3cbf30915a9a823f6494e613c2280868">run</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        };</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="ttc" id="class_gameplay_1_1_play_html"><div class="ttname"><a href="class_gameplay_1_1_play.html">Gameplay::Play</a></div><div class="ttdoc">base class for implementing actual plays includes functions to assist in finding robots ...</div><div class="ttdef"><b>Definition:</b> Play.hpp:18</div></div>
 <div class="ttc" id="class_gameplay_1_1_plays_1_1_nav_challenge2011_html_a3cbf30915a9a823f6494e613c2280868"><div class="ttname"><a href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html#a3cbf30915a9a823f6494e613c2280868">Gameplay::Plays::NavChallenge2011::run</a></div><div class="ttdeci">virtual bool run()</div><div class="ttdoc">Called every frame. </div><div class="ttdef"><b>Definition:</b> NavChallenge2011.cpp:12</div></div>
-<div class="ttc" id="class_gameplay_1_1_gameplay_module_html"><div class="ttname"><a href="class_gameplay_1_1_gameplay_module.html">Gameplay::GameplayModule</a></div><div class="ttdef"><b>Definition:</b> GameplayModule.hpp:27</div></div>
-<div class="ttc" id="class_gameplay_1_1_plays_1_1_nav_challenge2011_html"><div class="ttname"><a href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html">Gameplay::Plays::NavChallenge2011</a></div><div class="ttdef"><b>Definition:</b> NavChallenge2011.hpp:36</div></div>
+<div class="ttc" id="class_gameplay_1_1_gameplay_module_html"><div class="ttname"><a href="class_gameplay_1_1_gameplay_module.html">Gameplay::GameplayModule</a></div><div class="ttdoc">Coordinator of high-level logic. </div><div class="ttdef"><b>Definition:</b> GameplayModule.hpp:42</div></div>
+<div class="ttc" id="class_gameplay_1_1_plays_1_1_nav_challenge2011_html"><div class="ttname"><a href="class_gameplay_1_1_plays_1_1_nav_challenge2011.html">Gameplay::Plays::NavChallenge2011</a></div><div class="ttdoc">Play for navigation challenge for the 2011 competition Goal is to drive robots through a path of movi...</div><div class="ttdef"><b>Definition:</b> NavChallenge2011.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_a49db702c416b7b9d495646ad2df06d9.html">soccer</a></li><li class="navelem"><a class="el" href="dir_46ec975700ad7df6cddf2b56023169e5.html">gameplay</a></li><li class="navelem"><a class="el" href="dir_540b58a3cd25e0695089cc9882032dc1.html">plays</a></li><li class="navelem"><a class="el" href="dir_d917f802d770223c624b3962af7e91c7.html">demo_plays</a></li><li class="navelem"><b>NavChallenge2011.hpp</b></li>
-    <li class="footer">Generated on Mon Feb 10 2014 23:01:32 for RoboCup by
+    <li class="footer">Generated on Wed Feb 12 2014 20:48:16 for RoboCup SSL by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

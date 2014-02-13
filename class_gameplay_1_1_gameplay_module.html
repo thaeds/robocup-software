@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>RoboCup: Gameplay::GameplayModule Class Reference</title>
+<title>RoboCup SSL: Gameplay::GameplayModule Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,10 +29,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">RoboCup
-   &#160;<span id="projectnumber">0.4</span>
+   <div id="projectname">RoboCup SSL
    </div>
-   <div id="projectbrief">RoboCupControlSoftwareandFirmware</div>
+   <div id="projectbrief">Control Software and Firmware</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -95,7 +96,7 @@ $(document).ready(function(){initNavTree('class_gameplay_1_1_gameplay_module.htm
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +114,17 @@ $(document).ready(function(){initNavTree('class_gameplay_1_1_gameplay_module.htm
 <div class="title">Gameplay::GameplayModule Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Coordinator of high-level logic. </p>
+<p>Its main responsibilities include:</p>
+<ul>
+<li>managing the Goalie</li>
+<li>managing the joystick-controlled robot (if any)</li>
+<li>maintaining a list of global field obstacles</li>
+<li>choosing which <a class="el" href="class_gameplay_1_1_play.html" title="base class for implementing actual plays includes functions to assist in finding robots ...">Play</a> to run</li>
+<li>running the current play </li>
+</ul>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa2931f1dca916d9225fac380eb76b550"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2931f1dca916d9225fac380eb76b550"></a>
@@ -123,8 +134,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab3143bba8c5e2243bb0e5fe72ee89eba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab3143bba8c5e2243bb0e5fe72ee89eba"></a>
 <a class="el" href="class_system_state.html">SystemState</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>state</b> () const </td></tr>
 <tr class="separator:ab3143bba8c5e2243bb0e5fe72ee89eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc85f753270c464a2c451a8ede8a468f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc85f753270c464a2c451a8ede8a468f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>manualID</b> () const </td></tr>
+<tr class="memitem:aaba424dfbce39f5f9251f4c6545e18e0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#aaba424dfbce39f5f9251f4c6545e18e0">run</a> ()</td></tr>
+<tr class="memdesc:aaba424dfbce39f5f9251f4c6545e18e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">runs the current play  <a href="#aaba424dfbce39f5f9251f4c6545e18e0">More...</a><br/></td></tr>
+<tr class="separator:aaba424dfbce39f5f9251f4c6545e18e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc85f753270c464a2c451a8ede8a468f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#adc85f753270c464a2c451a8ede8a468f">manualID</a> () const </td></tr>
+<tr class="memdesc:adc85f753270c464a2c451a8ede8a468f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ID of joystick-controlled robot.  <a href="#adc85f753270c464a2c451a8ede8a468f">More...</a><br/></td></tr>
 <tr class="separator:adc85f753270c464a2c451a8ede8a468f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16b2d9e70a020571eed9ee498ab51af3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16b2d9e70a020571eed9ee498ab51af3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>createGoalie</b> ()</td></tr>
@@ -135,38 +149,36 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>removeGoalie</b> ()</
 <tr class="memitem:a638e17fda0620f70108a0dec8147644a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a638e17fda0620f70108a0dec8147644a"></a>
 <a class="el" href="class_gameplay_1_1_behaviors_1_1_goalie.html">Behaviors::Goalie</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>goalie</b> () const </td></tr>
 <tr class="separator:a638e17fda0620f70108a0dec8147644a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaba424dfbce39f5f9251f4c6545e18e0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#aaba424dfbce39f5f9251f4c6545e18e0">run</a> ()</td></tr>
-<tr class="memdesc:aaba424dfbce39f5f9251f4c6545e18e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">runs the current play  <a href="#aaba424dfbce39f5f9251f4c6545e18e0">More...</a><br/></td></tr>
-<tr class="separator:aaba424dfbce39f5f9251f4c6545e18e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00e1ed0743457b97f3ea4391a1061f2a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00e1ed0743457b97f3ea4391a1061f2a"></a>
-<a class="el" href="class_geometry2d_1_1_transform_matrix.html">Geometry2d::TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#a00e1ed0743457b97f3ea4391a1061f2a">ballMatrix</a> () const </td></tr>
-<tr class="memdesc:a00e1ed0743457b97f3ea4391a1061f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centered on the ball. <br/></td></tr>
-<tr class="separator:a00e1ed0743457b97f3ea4391a1061f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e5f8b981d9a105c2cbe489ee1144a02"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e5f8b981d9a105c2cbe489ee1144a02"></a>
-<a class="el" href="class_geometry2d_1_1_transform_matrix.html">Geometry2d::TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#a8e5f8b981d9a105c2cbe489ee1144a02">centerMatrix</a> () const </td></tr>
-<tr class="memdesc:a8e5f8b981d9a105c2cbe489ee1144a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Center of the field. <br/></td></tr>
-<tr class="separator:a8e5f8b981d9a105c2cbe489ee1144a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec847a2ad959fb0b02024a75c16a2c93"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec847a2ad959fb0b02024a75c16a2c93"></a>
-<a class="el" href="class_geometry2d_1_1_transform_matrix.html">Geometry2d::TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#aec847a2ad959fb0b02024a75c16a2c93">oppMatrix</a> () const </td></tr>
-<tr class="memdesc:aec847a2ad959fb0b02024a75c16a2c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opponent's coordinates. <br/></td></tr>
-<tr class="separator:aec847a2ad959fb0b02024a75c16a2c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7bad6d663f9e5732154801664efdddb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7bad6d663f9e5732154801664efdddb"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#ae7bad6d663f9e5732154801664efdddb">playName</a> ()</td></tr>
-<tr class="memdesc:ae7bad6d663f9e5732154801664efdddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the current play. <br/></td></tr>
-<tr class="separator:ae7bad6d663f9e5732154801664efdddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f607fcb4fdd5fe68830769cbeb0350b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f607fcb4fdd5fe68830769cbeb0350b"></a>
-const std::set&lt; OurRobot * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#a5f607fcb4fdd5fe68830769cbeb0350b">playRobots</a> () const </td></tr>
-<tr class="memdesc:a5f607fcb4fdd5fe68830769cbeb0350b"><td class="mdescLeft">&#160;</td><td class="mdescRight">All robots on our team that are usable by plays. <br/></td></tr>
-<tr class="separator:a5f607fcb4fdd5fe68830769cbeb0350b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33aa4bd9eca7d7bad1f61911f75ed43e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a33aa4bd9eca7d7bad1f61911f75ed43e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clearAvoidBallRadii</b> ()</td></tr>
-<tr class="separator:a33aa4bd9eca7d7bad1f61911f75ed43e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5ecc72f993292d20715a4e401865c0c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5ecc72f993292d20715a4e401865c0c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>goalieID</b> (int value)</td></tr>
 <tr class="separator:aa5ecc72f993292d20715a4e401865c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18e319fda79838b561d98588cd9eca80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18e319fda79838b561d98588cd9eca80"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>goalieID</b> ()</td></tr>
 <tr class="separator:a18e319fda79838b561d98588cd9eca80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga00e1ed0743457b97f3ea4391a1061f2a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga00e1ed0743457b97f3ea4391a1061f2a"></a>
+<a class="el" href="class_geometry2d_1_1_transform_matrix.html">Geometry2d::TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__matrices.html#ga00e1ed0743457b97f3ea4391a1061f2a">ballMatrix</a> () const </td></tr>
+<tr class="memdesc:ga00e1ed0743457b97f3ea4391a1061f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centered on the ball. <br/></td></tr>
+<tr class="separator:ga00e1ed0743457b97f3ea4391a1061f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e5f8b981d9a105c2cbe489ee1144a02"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga8e5f8b981d9a105c2cbe489ee1144a02"></a>
+<a class="el" href="class_geometry2d_1_1_transform_matrix.html">Geometry2d::TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__matrices.html#ga8e5f8b981d9a105c2cbe489ee1144a02">centerMatrix</a> () const </td></tr>
+<tr class="memdesc:ga8e5f8b981d9a105c2cbe489ee1144a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Center of the field. <br/></td></tr>
+<tr class="separator:ga8e5f8b981d9a105c2cbe489ee1144a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec847a2ad959fb0b02024a75c16a2c93"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaec847a2ad959fb0b02024a75c16a2c93"></a>
+<a class="el" href="class_geometry2d_1_1_transform_matrix.html">Geometry2d::TransformMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__matrices.html#gaec847a2ad959fb0b02024a75c16a2c93">oppMatrix</a> () const </td></tr>
+<tr class="memdesc:gaec847a2ad959fb0b02024a75c16a2c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opponent's coordinates. <br/></td></tr>
+<tr class="separator:gaec847a2ad959fb0b02024a75c16a2c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7bad6d663f9e5732154801664efdddb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7bad6d663f9e5732154801664efdddb"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#ae7bad6d663f9e5732154801664efdddb">playName</a> ()</td></tr>
+<tr class="memdesc:ae7bad6d663f9e5732154801664efdddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the current play. <br/></td></tr>
+<tr class="separator:ae7bad6d663f9e5732154801664efdddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f607fcb4fdd5fe68830769cbeb0350b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f607fcb4fdd5fe68830769cbeb0350b"></a>
+const std::set&lt; <a class="el" href="class_our_robot.html">OurRobot</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#a5f607fcb4fdd5fe68830769cbeb0350b">playRobots</a> () const </td></tr>
+<tr class="memdesc:a5f607fcb4fdd5fe68830769cbeb0350b"><td class="mdescLeft">&#160;</td><td class="mdescRight">All robots on our team that are usable by plays. <br/></td></tr>
+<tr class="separator:a5f607fcb4fdd5fe68830769cbeb0350b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33aa4bd9eca7d7bad1f61911f75ed43e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a33aa4bd9eca7d7bad1f61911f75ed43e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gameplay_1_1_gameplay_module.html#a33aa4bd9eca7d7bad1f61911f75ed43e">clearAvoidBallRadii</a> ()</td></tr>
+<tr class="memdesc:a33aa4bd9eca7d7bad1f61911f75ed43e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the avoidBallRadius for each <a class="el" href="class_our_robot.html">OurRobot</a>. <br/></td></tr>
+<tr class="separator:a33aa4bd9eca7d7bad1f61911f75ed43e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -175,6 +187,24 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Play</b></td></tr>
 <tr class="separator:a7c2f46121e704a36ac14bdfdaced4e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="adc85f753270c464a2c451a8ede8a468f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Gameplay::GameplayModule::manualID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ID of joystick-controlled robot. </p>
+<p>This is just a convenience method. The <a class="el" href="class_processor.html" title="Brings all the pieces together. ">Processor</a> is the one in charge of managing manualID. </p>
+
+</div>
+</div>
 <a class="anchor" id="aaba424dfbce39f5f9251f4c6545e18e0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +252,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Play</b></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_gameplay.html">Gameplay</a></li><li class="navelem"><a class="el" href="class_gameplay_1_1_gameplay_module.html">GameplayModule</a></li>
-    <li class="footer">Generated on Mon Feb 10 2014 23:01:33 for RoboCup by
+    <li class="footer">Generated on Wed Feb 12 2014 20:48:17 for RoboCup SSL by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

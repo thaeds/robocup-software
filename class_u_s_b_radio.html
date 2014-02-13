@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>RoboCup: USBRadio Class Reference</title>
+<title>RoboCup SSL: USBRadio Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,10 +29,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">RoboCup
-   &#160;<span id="projectnumber">0.4</span>
+   <div id="projectname">RoboCup SSL
    </div>
-   <div id="projectbrief">RoboCupControlSoftwareandFirmware</div>
+   <div id="projectbrief">Control Software and Firmware</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -95,7 +96,7 @@ $(document).ready(function(){initNavTree('class_u_s_b_radio.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -117,8 +118,8 @@ $(document).ready(function(){initNavTree('class_u_s_b_radio.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class provides us the ability to communicate with real robots using our own radio protocol. </p>
-<p>The radio sends one large packet to all of the robots at once that contains the data in each robot's radioTx packet. Note that it isn't sent in protobuf format though, it's sent straight-up data to avoid the overhead of protobuf. Robots respond individually in order of their shell numbers in a set time slot. The bot with the lowest shell number replies in the first time slot, and so on. This ensures that robots don't jam each other's communication. </p>
+<div class="textblock"><p><a class="el" href="class_radio.html">Radio</a> IO with real robots. </p>
+<p>This class provides us the ability to communicate with real robots using our own radio protocol. The radio sends one large packet to all of the robots at once that contains the data in each robot's radioTx packet. Note that it isn't sent in protobuf format though, it's sent straight-up data to avoid the overhead of protobuf. Robots respond individually in order of their shell numbers in a set time slot. The bot with the lowest shell number replies in the first time slot, and so on. This ensures that robots don't jam each other's communication. </p>
 </div><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for USBRadio:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -234,7 +235,7 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>NumRXTran
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_u_s_b_radio.html">USBRadio</a></li>
-    <li class="footer">Generated on Mon Feb 10 2014 23:01:32 for RoboCup by
+    <li class="footer">Generated on Wed Feb 12 2014 20:48:17 for RoboCup SSL by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

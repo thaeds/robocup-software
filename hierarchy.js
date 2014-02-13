@@ -1,6 +1,6 @@
 var hierarchy =
 [
-    [ "AutoName", null, [
+    [ "AutoName", "class_auto_name.html", [
       [ "Gameplay::Play", "class_gameplay_1_1_play.html", [
         [ "Gameplay::Plays::BasicOffense121", "class_gameplay_1_1_plays_1_1_basic_offense121.html", null ],
         [ "Gameplay::Plays::BasicOffense122", "class_gameplay_1_1_plays_1_1_basic_offense122.html", null ],
@@ -116,18 +116,23 @@ var hierarchy =
     [ "RobotConfig::Dynamics", "struct_robot_config_1_1_dynamics.html", null ],
     [ "FaceTarget", "class_face_target.html", null ],
     [ "Gameplay::FieldEvaluator", "class_gameplay_1_1_field_evaluator.html", null ],
+    [ "FIRFilter< T >", "class_f_i_r_filter.html", null ],
     [ "Chart::Function", "struct_chart_1_1_function.html", [
       [ "Chart::NumericField", "struct_chart_1_1_numeric_field.html", null ],
       [ "Chart::PointMagnitude", "struct_chart_1_1_point_magnitude.html", null ]
     ] ],
     [ "Gameplay::GameplayModule", "class_gameplay_1_1_gameplay_module.html", null ],
     [ "GameState", "class_game_state.html", null ],
+    [ "iterator", null, [
+      [ "ExceptionIterator< T >", "class_exception_iterator.html", null ]
+    ] ],
     [ "RobotConfig::Kicker", "struct_robot_config_1_1_kicker.html", null ],
     [ "Geometry2d::Line", "class_geometry2d_1_1_line.html", [
       [ "Geometry2d::Segment", "class_geometry2d_1_1_segment.html", null ]
     ] ],
     [ "Logger", "class_logger.html", null ],
     [ "Gameplay::Luck_Options", "struct_gameplay_1_1_luck___options.html", null ],
+    [ "MotionCommand", "class_motion_command.html", null ],
     [ "MotionControl", "class_motion_control.html", null ],
     [ "MotionTarget", "class_motion_target.html", null ],
     [ "noncopyable", null, [
@@ -140,6 +145,7 @@ var hierarchy =
     [ "ObstacleGroup", "class_obstacle_group.html", null ],
     [ "Gameplay::PassingContext", "class_gameplay_1_1_passing_context.html", null ],
     [ "Planning::Path", "class_planning_1_1_path.html", null ],
+    [ "Pid", "class_pid.html", null ],
     [ "RobotConfig::PID", "struct_robot_config_1_1_p_i_d.html", null ],
     [ "Gameplay::PlayFactory", "class_gameplay_1_1_play_factory.html", [
       [ "Gameplay::PlayFactoryImpl< X >", "class_gameplay_1_1_play_factory_impl.html", null ]
@@ -190,7 +196,10 @@ var hierarchy =
     [ "RobotFilter", "class_robot_filter.html", null ],
     [ "RobotObservation", "class_robot_observation.html", null ],
     [ "RobotPose", "class_robot_pose.html", [
-      [ "Robot", "class_robot.html", null ]
+      [ "Robot", "class_robot.html", [
+        [ "OpponentRobot", "class_opponent_robot.html", null ],
+        [ "OurRobot", "class_our_robot.html", null ]
+      ] ]
     ] ],
     [ "RobotStatus", "class_robot_status.html", null ],
     [ "Planning::RRTPlanner", "class_planning_1_1_r_r_t_planner.html", null ],

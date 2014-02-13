@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>RoboCup: soccer/planning/Obstacle.hpp Source File</title>
+<title>RoboCup SSL: soccer/planning/Obstacle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,10 +29,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">RoboCup
-   &#160;<span id="projectnumber">0.4</span>
+   <div id="projectname">RoboCup SSL
    </div>
-   <div id="projectbrief">RoboCupControlSoftwareandFirmware</div>
+   <div id="projectbrief">Control Software and Firmware</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('_obstacle_8hpp_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -134,7 +135,7 @@ $(document).ready(function(){initNavTree('_obstacle_8hpp_source.html','');});
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_obstacle_group.html">   38</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_obstacle_group.html">ObstacleGroup</a></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">typedef</span> boost::optional&lt;ObstacleGroup&gt; Optional;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">typedef</span> boost::optional&lt;ObstacleGroup&gt; Optional;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    ~<a class="code" href="class_obstacle_group.html">ObstacleGroup</a>();</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    </div>
@@ -167,7 +168,7 @@ $(document).ready(function(){initNavTree('_obstacle_8hpp_source.html','');});
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        {</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">if</span> ((*it)-&gt;hit(obj))</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                hitSet.<a class="code" href="class_obstacle_group.html#ab6b8dbf6edda93a30444eb5385249b5b">add</a>(*it);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                hitSet.<a class="code" href="class_obstacle_group.html#ab6b8dbf6edda93a30444eb5385249b5b">add</a>(*it);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            }</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
@@ -181,7 +182,7 @@ $(document).ready(function(){initNavTree('_obstacle_8hpp_source.html','');});
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        {</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordflow">if</span> ((*it)-&gt;hit(obj))</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            }</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        }</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
@@ -220,8 +221,8 @@ $(document).ready(function(){initNavTree('_obstacle_8hpp_source.html','');});
 <div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="class_polygon_obstacle.html">  152</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_polygon_obstacle.html">PolygonObstacle</a>: <span class="keyword">public</span> <a class="code" href="class_obstacle.html">Obstacle</a></div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;{</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                <a class="code" href="class_polygon_obstacle.html">PolygonObstacle</a>(){}</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                <a class="code" href="class_polygon_obstacle.html">PolygonObstacle</a>(<span class="keyword">const</span> <a class="code" href="class_geometry2d_1_1_polygon.html">Geometry2d::Polygon</a>&amp; poly) : polygon(poly) {}</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <a class="code" href="class_polygon_obstacle.html">PolygonObstacle</a>(){}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <a class="code" href="class_polygon_obstacle.html">PolygonObstacle</a>(<span class="keyword">const</span> <a class="code" href="class_geometry2d_1_1_polygon.html">Geometry2d::Polygon</a>&amp; poly) : polygon(poly) {}</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_polygon_obstacle.html#a66691cd5fb1601d800748562b5c7c081">hit</a>(<span class="keyword">const</span> <a class="code" href="class_geometry2d_1_1_point.html">Geometry2d::Point</a> &amp;pt) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_polygon_obstacle.html#a66691cd5fb1601d800748562b5c7c081">hit</a>(<span class="keyword">const</span> <a class="code" href="class_geometry2d_1_1_segment.html">Geometry2d::Segment</a> &amp;seg) <span class="keyword">const</span>;</div>
@@ -250,7 +251,7 @@ $(document).ready(function(){initNavTree('_obstacle_8hpp_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_a49db702c416b7b9d495646ad2df06d9.html">soccer</a></li><li class="navelem"><a class="el" href="dir_ef54a4ef79874a1fb38275720e192924.html">planning</a></li><li class="navelem"><b>Obstacle.hpp</b></li>
-    <li class="footer">Generated on Mon Feb 10 2014 23:01:32 for RoboCup by
+    <li class="footer">Generated on Wed Feb 12 2014 20:48:16 for RoboCup SSL by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

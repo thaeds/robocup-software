@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['planning',['Planning',['../namespace_planning.html',1,'']]]
+  ['linalg',['LinAlg',['../namespace_lin_alg.html',1,'']]]
 ];

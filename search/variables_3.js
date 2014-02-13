@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['kickready',['kickReady',['../class_gameplay_1_1_behaviors_1_1_kick.html#a491004c2008138b434d04c6e3f3ad8a3',1,'Gameplay::Behaviors::Kick']]]
+  ['cmd',['cmd',['../class_our_robot.html#a6107470647500eaca4c8775895b0b51e',1,'OurRobot']]],
+  ['cmd_5fvel',['cmd_vel',['../class_our_robot.html#a56d6b84832e32ec203b96ec66063fabf',1,'OurRobot']]]
 ];

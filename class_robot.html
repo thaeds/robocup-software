@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>RoboCup: Robot Class Reference</title>
+<title>RoboCup SSL: Robot Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,10 +29,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">RoboCup
-   &#160;<span id="projectnumber">0.4</span>
+   <div id="projectname">RoboCup SSL
    </div>
-   <div id="projectbrief">RoboCupControlSoftwareandFirmware</div>
+   <div id="projectbrief">Control Software and Firmware</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -95,7 +96,7 @@ $(document).ready(function(){initNavTree('class_robot.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -120,21 +121,23 @@ $(document).ready(function(){initNavTree('class_robot.html','');});
  <div class="center">
   <img src="class_robot.png" usemap="#Robot_map" alt=""/>
   <map id="Robot_map" name="Robot_map">
-<area href="class_robot_pose.html" alt="RobotPose" shape="rect" coords="0,0,72,24"/>
+<area href="class_robot_pose.html" title="Contains robot motion state data. " alt="RobotPose" shape="rect" coords="54,0,153,24"/>
+<area href="class_opponent_robot.html" title="A robot that is not on our team. " alt="OpponentRobot" shape="rect" coords="0,112,99,136"/>
+<area href="class_our_robot.html" alt="OurRobot" shape="rect" coords="109,112,208,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a241c0ca6e392b4c2fef481392d35531d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_robot.html#a241c0ca6e392b4c2fef481392d35531d">Robot</a> (unsigned int shell, bool <a class="el" href="class_robot.html#a54366c96e4367b00216f42ae0405c552">self</a>)</td></tr>
+<tr class="memitem:a241c0ca6e392b4c2fef481392d35531d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_robot.html#a241c0ca6e392b4c2fef481392d35531d">Robot</a> (unsigned int <a class="el" href="class_robot.html#a8ed316247241fadd6d59fc197df25e3e">shell</a>, bool <a class="el" href="class_robot.html#a54366c96e4367b00216f42ae0405c552">self</a>)</td></tr>
 <tr class="memdesc:a241c0ca6e392b4c2fef481392d35531d"><td class="mdescLeft">&#160;</td><td class="mdescRight">super class for all robots  <a href="#a241c0ca6e392b4c2fef481392d35531d">More...</a><br/></td></tr>
 <tr class="separator:a241c0ca6e392b4c2fef481392d35531d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a924320124b09c2f2ac1621aa210d5f38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a924320124b09c2f2ac1621aa210d5f38"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_robot.html#a924320124b09c2f2ac1621aa210d5f38">~Robot</a> ()</td></tr>
 <tr class="memdesc:a924320124b09c2f2ac1621aa210d5f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">deconstructor, deletesRobotFilter <br/></td></tr>
 <tr class="separator:a924320124b09c2f2ac1621aa210d5f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ed316247241fadd6d59fc197df25e3e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ed316247241fadd6d59fc197df25e3e"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>shell</b> () const </td></tr>
+<tr class="memitem:a8ed316247241fadd6d59fc197df25e3e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_robot.html#a8ed316247241fadd6d59fc197df25e3e">shell</a> () const </td></tr>
+<tr class="memdesc:a8ed316247241fadd6d59fc197df25e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">ID number for the robot.  <a href="#a8ed316247241fadd6d59fc197df25e3e">More...</a><br/></td></tr>
 <tr class="separator:a8ed316247241fadd6d59fc197df25e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54366c96e4367b00216f42ae0405c552"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a54366c96e4367b00216f42ae0405c552"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_robot.html#a54366c96e4367b00216f42ae0405c552">self</a> () const </td></tr>
@@ -206,6 +209,33 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>visionFrame</b></td></
 
 </div>
 </div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a8ed316247241fadd6d59fc197df25e3e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Robot::shell </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ID number for the robot. </p>
+<p>This is the number that the dot pattern on the top of the robot represents </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>soccer/<a class="el" href="_robot_8hpp_source.html">Robot.hpp</a></li>
 <li>soccer/Robot.cpp</li>
@@ -216,7 +246,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>visionFrame</b></td></
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_robot.html">Robot</a></li>
-    <li class="footer">Generated on Mon Feb 10 2014 23:01:32 for RoboCup by
+    <li class="footer">Generated on Wed Feb 12 2014 20:48:17 for RoboCup SSL by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

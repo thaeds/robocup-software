@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>RoboCup: Processor Class Reference</title>
+<title>RoboCup SSL: Processor Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,10 +29,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">RoboCup
-   &#160;<span id="projectnumber">0.4</span>
+   <div id="projectname">RoboCup SSL
    </div>
-   <div id="projectbrief">RoboCupControlSoftwareandFirmware</div>
+   <div id="projectbrief">Control Software and Firmware</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -95,7 +96,7 @@ $(document).ready(function(){initNavTree('class_processor.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -117,7 +118,19 @@ $(document).ready(function(){initNavTree('class_processor.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>handles processing for a team mixes all the threads </p>
+<div class="textblock"><p>Brings all the pieces together. </p>
+<p>The processor ties together all the moving parts for controlling a team of soccer robots. Its responsibities include:</p>
+<ul>
+<li>receiving and handling vision packets (see <a class="el" href="class_vision_receiver.html" title="gets vision packets, vision-thread ">VisionReceiver</a>)</li>
+<li>receiving and handling referee packets (see <a class="el" href="class_referee_module.html" title="this is the referee ">RefereeModule</a>)</li>
+<li>radio IO (see <a class="el" href="class_radio.html">Radio</a>)</li>
+<li>running the <a class="el" href="class_ball_tracker.html">BallTracker</a></li>
+<li>running the <a class="el" href="class_gameplay_1_1_gameplay_module.html" title="Coordinator of high-level logic. ">Gameplay::GameplayModule</a></li>
+<li>running the <a class="el" href="class_logger.html">Logger</a></li>
+<li>handling the <a class="el" href="class_configuration.html" title="static variable for the program, extremely general ">Configuration</a></li>
+<li>handling the <a class="el" href="class_joystick.html" title="this is the class for the joystick control of the robots ">Joystick</a></li>
+<li>running motion control for each robot (see OurRobot::motionControl) </li>
+</ul>
 </div><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for Processor:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -155,11 +168,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>manualID</b> (int val
 <tr class="memitem:abdb9ab2b41816f3ecc68598aaf933e80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abdb9ab2b41816f3ecc68598aaf933e80"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>manualID</b> ()</td></tr>
 <tr class="separator:abdb9ab2b41816f3ecc68598aaf933e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1368e6f2ef701e106ef0f9128bcafc2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab1368e6f2ef701e106ef0f9128bcafc2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>goalieID</b> (int value)</td></tr>
+<tr class="memitem:ab1368e6f2ef701e106ef0f9128bcafc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_processor.html#ab1368e6f2ef701e106ef0f9128bcafc2">goalieID</a> (int value)</td></tr>
+<tr class="memdesc:ab1368e6f2ef701e106ef0f9128bcafc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the shell ID of the goalie.  <a href="#ab1368e6f2ef701e106ef0f9128bcafc2">More...</a><br/></td></tr>
 <tr class="separator:ab1368e6f2ef701e106ef0f9128bcafc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6e2aff5a345fa71b0847bb91bb815c7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6e2aff5a345fa71b0847bb91bb815c7"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>goalieID</b> ()</td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_processor.html#ac6e2aff5a345fa71b0847bb91bb815c7">goalieID</a> ()</td></tr>
+<tr class="memdesc:ac6e2aff5a345fa71b0847bb91bb815c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shell ID of the goalie robot. <br/></td></tr>
 <tr class="separator:ac6e2aff5a345fa71b0847bb91bb815c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b599d9aba834e8671ce1f65d5471e25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b599d9aba834e8671ce1f65d5471e25"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>dampedRotation</b> (bool value)</td></tr>
@@ -285,6 +299,25 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a class="anchor" id="ab1368e6f2ef701e106ef0f9128bcafc2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Processor::goalieID </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the shell ID of the goalie. </p>
+<p>The rules require us to specify at the start of a match/period which robot will be the goalie. A value of -1 indicates that there is no one assigned. </p>
+
+</div>
+</div>
 <a class="anchor" id="a761421289fb86299a27c49480e6e0342"></a>
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +352,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_processor.html">Processor</a></li>
-    <li class="footer">Generated on Mon Feb 10 2014 23:01:32 for RoboCup by
+    <li class="footer">Generated on Wed Feb 12 2014 20:48:17 for RoboCup SSL by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>
