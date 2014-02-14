@@ -15,6 +15,7 @@ var searchData=
   ['direction',['direction',['../class_geometry2d_1_1_point.html#a7ddcff0925ffe9f7405e8db84710d3a3',1,'Geometry2d::Point']]],
   ['distto',['distTo',['../class_geometry2d_1_1_line.html#abce9805c81f2753a672f01fa0c2df429',1,'Geometry2d::Line::distTo()'],['../class_geometry2d_1_1_point.html#a2c3908ca392de0f0416dc8a5b739374e',1,'Geometry2d::Point::distTo()']]],
   ['dot',['dot',['../class_geometry2d_1_1_point.html#a1efb0c6ab5dea03efef9f8e599a2cbf2',1,'Geometry2d::Point']]],
+  ['drawing_20functions',['Drawing Functions',['../group__drawing__functions.html',1,'']]],
   ['dumbreceive',['DumbReceive',['../class_gameplay_1_1_dumb_receive.html',1,'Gameplay']]],
   ['dynamicnavigationtc',['DynamicNavigationTC',['../class_gameplay_1_1_plays_1_1_dynamic_navigation_t_c.html',1,'Gameplay::Plays']]],
   ['dynamics',['Dynamics',['../struct_robot_config_1_1_dynamics.html',1,'RobotConfig']]]

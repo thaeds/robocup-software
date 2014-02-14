@@ -1,5 +1,6 @@
 var NAVTREEINDEX8 =
 {
+"struct_processor_1_1_status.html#aa531f5bbda43233607d2293e03c6d774":[6,0,37,0,1],
 "struct_processor_1_1_status.html#ac301aef1f2e612a6371e77d6efbd243e":[6,0,37,0,3],
 "struct_processor_1_1_status.html#ad49fde103417685fde7d1b221ead97e9":[6,0,37,0,2],
 "struct_robot_config_1_1_dynamics.html":[6,0,44,0],

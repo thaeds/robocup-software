@@ -40,7 +40,7 @@ var NAVTREEINDEX =
 "class_geometry2d_1_1_point.html#a0c53cdd9a83d4784f348d10ba59f09f1",
 "class_our_robot.html#a6107470647500eaca4c8775895b0b51e",
 "class_referee_tab.html#a855ab80d2a04a83b29741cd61f0b25b3",
-"struct_processor_1_1_status.html#ac301aef1f2e612a6371e77d6efbd243e"
+"struct_processor_1_1_status.html#aa531f5bbda43233607d2293e03c6d774"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
