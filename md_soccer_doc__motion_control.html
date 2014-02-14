@@ -114,6 +114,47 @@ $(document).ready(function(){initNavTree('md_soccer_doc__motion_control.html',''
 <li><a class="el" href="class_motion_control.html" title="Handles computer-side motion control. ">MotionControl</a></li>
 <li><a class="el" href="class_pid.html">Pid</a></li>
 </ul>
+<p>Here's a basic outline of how the motion control system currently works:</p>
+<ul>
+<li><code><a class="el" href="class_processor.html#a073f5e9ea6a3557c217d67ab392e5852" title="program loop ">Processor.run()</a></code><ul>
+<li><code>GameplayModule.run()</code><ul>
+<li><code>Play.run()</code><ul>
+<li><code>Behavior.run()</code><ul>
+<li><code>OurRobot.move(2dpoint)</code><ul>
+<li>sets value of <code>_delayed_goal</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code><a class="el" href="class_our_robot.html#ac0757ab0f8a8c005e48cf65c57064b43" title="Executes last motion command, retrieves the necessary set of obstacles, and performs planning...">OurRobot.execute()</a></code><ul>
+<li>feeds _delayed_goal to the RRT planner to replan (if necessary)</li>
+<li>sets <code>cmd.target.pos</code> using <code>findGoalOnPath()</code></li>
+<li><code>findGoalOnPath()</code> finds the point on <code>_path</code> closest to the robot's current position, then moves it along the path a bit so the robot follows the path</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>OurRobot.motionControl().run()</code><ul>
+<li><code>positionPD()</code><ul>
+<li>sets the velocities in the robot's <a class="el" href="class_motion_command.html">MotionCommand</a></li>
+</ul>
+</li>
+<li><code>anglePD()</code><ul>
+<li>sets angularVelocity of robot's <a class="el" href="class_motion_command.html">MotionCommand</a></li>
+</ul>
+</li>
+<li>sets body_x, body_y, and body_w on the robot's <code>RadioTx::Robot</code> packet</li>
+</ul>
+</li>
+<li><code>Processor.sendRadioData()</code><ul>
+<li>builds the RadioTx packet by conglomerating each <code><a class="el" href="class_our_robot.html" title="A robot on our team. ">OurRobot</a></code>'s <code>RadioTx::Robot</code> packet</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2>Robot-side</h2>
 <p>The robots receive instructions from the field computer in the form of protobuf packets sent over the radio. See control.{h, c} to see how the motion control code works. The control code is called from the main() runloop. </p>
 </div></div><!-- contents -->
@@ -121,7 +162,7 @@ $(document).ready(function(){initNavTree('md_soccer_doc__motion_control.html',''
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Feb 13 2014 22:36:44 for RoboCup SSL by
+    <li class="footer">Generated on Fri Feb 14 2014 00:48:26 for RoboCup SSL by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

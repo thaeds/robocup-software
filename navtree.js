@@ -38,9 +38,9 @@ var NAVTREEINDEX =
 "class_gameplay_1_1_plays_1_1_basic_offense122.html",
 "class_gameplay_1_1_plays_1_1_our_goal_kick2.html#a553a247a2f45ee52258779b279a3cafb",
 "class_geometry2d_1_1_point.html#a0c53cdd9a83d4784f348d10ba59f09f1",
-"class_our_robot.html#a6107470647500eaca4c8775895b0b51e",
-"class_referee_tab.html#a855ab80d2a04a83b29741cd61f0b25b3",
-"struct_processor_1_1_status.html#aa531f5bbda43233607d2293e03c6d774"
+"class_our_robot.html#a6b6f72c2cfb6c0c5ff1eff82904fc04a",
+"class_referee_tab.html#a98cad232460f0b99bc2107bfa7d699e5",
+"struct_robot_config_1_1_dynamics.html#a39f5934dcf21f2ca94573ac3d2457716"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

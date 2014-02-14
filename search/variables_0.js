@@ -8,6 +8,7 @@ var searchData=
   ['_5fkick_5finterval',['_kick_interval',['../class_gameplay_1_1_plays_1_1_kicker_endurance_test.html#a0ca74d698c41907f6dcf8b81769ddb2c',1,'Gameplay::Plays::KickerEnduranceTest']]],
   ['_5fkick_5fpower',['_kick_power',['../class_gameplay_1_1_plays_1_1_kicker_endurance_test.html#ac25d8cad15a5b234b601d547ede8f6f6',1,'Gameplay::Plays::KickerEnduranceTest']]],
   ['_5fkicker_5fcounts',['_kicker_counts',['../class_gameplay_1_1_plays_1_1_kicker_endurance_test.html#a0daa75bf47d56660a4570bf83429217c',1,'Gameplay::Plays::KickerEnduranceTest']]],
+  ['_5flocal_5fobstacles',['_local_obstacles',['../class_our_robot.html#a97d55812c6fff5e6f9cdaeaa05f85d36',1,'OurRobot']]],
   ['_5fmaxiterations',['_maxIterations',['../class_planning_1_1_r_r_t_planner.html#a3e333063b05159149291fd2defff89ac',1,'Planning::RRTPlanner']]],
   ['_5fmutex',['_mutex',['../class_vision_receiver.html#a413fbf954ac882d2cf7a2381b7a3df22',1,'VisionReceiver']]],
   ['_5fobstacles',['_obstacles',['../class_planning_1_1_r_r_t_planner.html#a4141cb2e18b71c7dbb5f356e9398fe3e',1,'Planning::RRTPlanner']]],
@@ -15,7 +16,6 @@ var searchData=
   ['_5fpath',['_path',['../class_our_robot.html#a6706ca9149dc0fb355df118293c559dc',1,'OurRobot']]],
   ['_5fplanner',['_planner',['../class_our_robot.html#ab00b3c177e27ce79b68f77f9ecd5de56',1,'OurRobot']]],
   ['_5fself_5favoid_5fmask',['_self_avoid_mask',['../class_our_robot.html#a19192634cf02c79cbaf29b35d999a52d',1,'OurRobot']]],
-  ['_5fstopatend',['_stopAtEnd',['../class_our_robot.html#a5b841b4ddff2857398b68822ec274ca6',1,'OurRobot']]],
   ['_5ftimer',['_timer',['../class_gameplay_1_1_plays_1_1_kicker_endurance_test.html#a30d9e9f61b983d60e07e79a34bbdd6cc',1,'Gameplay::Plays::KickerEnduranceTest']]],
   ['_5fuse_5fchipper',['_use_chipper',['../class_gameplay_1_1_plays_1_1_kicker_endurance_test.html#ae302c65a90cc1b65138224da19a44daf',1,'Gameplay::Plays::KickerEnduranceTest']]],
   ['_5fusespathplanning',['_usesPathPlanning',['../class_our_robot.html#ab0263c886dd0ba1baa15d3d842f5d5bd',1,'OurRobot']]]

@@ -1,10 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"struct_processor_1_1_status.html#aa531f5bbda43233607d2293e03c6d774":[6,0,37,0,1],
-"struct_processor_1_1_status.html#ac301aef1f2e612a6371e77d6efbd243e":[6,0,37,0,3],
-"struct_processor_1_1_status.html#ad49fde103417685fde7d1b221ead97e9":[6,0,37,0,2],
-"struct_robot_config_1_1_dynamics.html":[6,0,44,0],
-"struct_robot_config_1_1_dynamics.html#a13d58b508efe682cf45ce663cc9c84bb":[6,0,44,0,2],
 "struct_robot_config_1_1_dynamics.html#a39f5934dcf21f2ca94573ac3d2457716":[6,0,44,0,1],
 "struct_robot_config_1_1_dynamics.html#a95665bc2af6b93cdcd60e8152ffb1bcb":[6,0,44,0,3],
 "struct_robot_config_1_1_dynamics.html#a9f6278b8c624f54b824679af3a0d6c3f":[6,0,44,0,4],

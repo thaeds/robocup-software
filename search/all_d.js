@@ -17,7 +17,7 @@ var searchData=
   ['motioneval',['MotionEval',['../class_gameplay_1_1_plays_1_1_motion_eval.html',1,'Gameplay::Plays']]],
   ['motionleader',['MotionLeader',['../class_gameplay_1_1_behaviors_1_1_motion_leader.html',1,'Gameplay::Behaviors']]],
   ['motiontarget',['MotionTarget',['../class_motion_target.html',1,'']]],
-  ['move',['move',['../class_our_robot.html#ab3931e8ababba781a43f1542e33ef951',1,'OurRobot::move(Geometry2d::Point goal, bool stopAtEnd=false)'],['../class_our_robot.html#afdb2cd2ec7c3c34ddb4b79a94bd109d9',1,'OurRobot::move(const std::vector&lt; Geometry2d::Point &gt; &amp;path, bool stopAtEnd=true)']]],
+  ['move',['move',['../class_our_robot.html#a10291e8ea0460ea075f7f119a77b083a',1,'OurRobot::move(Geometry2d::Point goal)'],['../class_our_robot.html#ac8c7219ebb3da4395dd15e689be6a050',1,'OurRobot::move(const std::vector&lt; Geometry2d::Point &gt; &amp;path)']]],
   ['move',['Move',['../class_gameplay_1_1_behaviors_1_1_move.html',1,'Gameplay::Behaviors']]],
   ['mytestplay',['MyTestPlay',['../class_gameplay_1_1_plays_1_1_my_test_play.html',1,'Gameplay::Plays']]]
 ];
