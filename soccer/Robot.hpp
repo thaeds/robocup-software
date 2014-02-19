@@ -9,7 +9,7 @@
 #include <Eigen/Geometry>
 #include <Constants.hpp>
 #include <planning/Path.hpp>
-#include <planning/rrt.hpp>
+#include <planning/RRTPlanner.hpp>
 #include <protobuf/RadioTx.pb.h>
 #include <protobuf/RadioRx.pb.h>
 
@@ -36,6 +36,12 @@ namespace Planning
 	class RRTPlanner;
 }
 
+/**
+ * @brief Contains robot motion state data
+ * @details This class contains data that comes from the vision system 
+ * including position data and which camera this robot was seen by and
+ * what time it was last seen.
+ */
 class RobotPose
 {
 public:
@@ -65,7 +71,7 @@ public:
 	Robot(unsigned int shell, bool self);
 	~Robot();
 
-	/*
+	/**
 	 * ID number for the robot.  This is the number that the dot pattern on the
 	 * top of the robot represents
 	 */
@@ -96,32 +102,23 @@ private:
 	RobotFilter *_filter;
 };
 
-class MotionTarget
-{
+/**
+ * @brief Specifies a location that a robot should attempt to get to
+ */
+class MotionTarget {
 public:
-	MotionTarget()
-	{
-		pathLength = 0;
-		pathEnd = StopAtEnd;
-	}
-	
+	///	The point on the field that the robot should get to
 	Geometry2d::Point pos;
-	float pathLength;
-	
-	enum PathEndType
-	{
-		StopAtEnd = 0,
-		FastAtEnd = 1
-	};
-	PathEndType pathEnd;
 };
 
+/**
+ * @brief Specifies which direction a robot should face
+ * @details A face target consists of a 2d point on the field that a robot should
+ *          face towards.
+ */
 class FaceTarget {
 public:
-
-	/**
-	 * The point on the field that the robot should attempt to face towards
-	 */	
+	///	The point on the field that the robot should attempt to face towards
 	Geometry2d::Point pos;
 };
 
@@ -134,8 +131,6 @@ class MotionCommand
 			wScale = 1.0;
 		}
 
-		//FIXME - Remove pathLength and pathEnd.  Store a path in MotionCommand.  What about facing?
-		
 		// Any of these optionals may be set before motion control runs.
 		// Motion control will fill in the blanks.  This allows bypassing parts of motion control.
 		
@@ -155,14 +150,29 @@ class MotionCommand
 		boost::optional<float> angularVelocity;
 };
 
+/**
+ * @brief A robot on our team
+ * @details This extends Robot and provides methods for interacting with our robots.
+ * A few things this class is responsible for:
+ * - specifying target position, velocity, angle, etc
+ * - kicking and chipping the ball
+ * - keeping track of which hardware revision this bot is
+ * - avoidance of the ball and other robots (this info is fed to the path planner)
+ * - playing the GT fight song
+ */
 class OurRobot: public Robot
 {
 public:
 	typedef boost::array<float,Num_Shells> RobotMask;
 
-	RobotConfig * config;
-	RobotStatus * status;
+	RobotConfig *config;
+	RobotStatus *status;
 
+	/**
+	 * @brief Construct a new OurRobot
+	 * @param shell The robot ID
+	 * @param state A pointer to the global system state object
+	 */
 	OurRobot(int shell, SystemState *state);
 	~OurRobot();
 
@@ -201,18 +211,16 @@ public:
 	void stop();
 
 	/**
-	 * Move to a given point using the default RRT planner
+	 * @brief Move to a given point using the default RRT planner
+	 * @param stopAtEnd UNUSED
 	 */
-	void move(Geometry2d::Point goal, bool stopAtEnd=false);
+	void move(Geometry2d::Point goal, bool stopAtEnd = false);
 
 	/**
-	 * Move along a path for waypoint-based control
-	 * If not set to stop at end, the planner will send the robot
-	 * traveling in whatever direction it was moving in at the end of the path.
-	 * This should only be used when there will be another command when
-	 * the robot reaches the end of the path.
+	 * @brief Move along a path for waypoint-based control
+	 * @param stopAtEnd UNUSED
 	 */
-	void move(const std::vector<Geometry2d::Point>& path, bool stopAtEnd=true);
+	void move(const std::vector<Geometry2d::Point>& path, bool stopAtEnd = false);
 
 	/**
 	 * Pivot around a point at a fixed radius and direction (CCW or CW),
@@ -299,7 +307,7 @@ public:
 	/** checks if opponents are avoided at all */
 	bool avoidOpponent(unsigned shell_id) const;
 
-	/** @return true if we are able to approach opponents */
+	/** @return true if we are able to approach the given opponent */
 	bool approachOpponent(unsigned shell_id) const;
 
 	/** returns the avoidance radius */
@@ -387,8 +395,8 @@ public:
 
 	bool rxIsFresh(uint64_t age = 500000) const;
 
-	/*
-	 * Starts the robot playing the fight song
+	/**
+	 * @brief Starts the robot playing the fight song
 	 */
 	void sing()
 	{
@@ -396,8 +404,8 @@ public:
 		radioTx.set_sing(true);
 	}
 
-	/*
-	 * Undoes any calls to kick() or chip().
+	/**
+	 * @brief Undoes any calls to kick() or chip().
 	 */
 	void unkick()
 	{
@@ -418,7 +426,6 @@ protected:
 	/** Planning components for delayed planning */
 	bool _usesPathPlanning;
 	boost::optional<Geometry2d::Point> _delayed_goal;   /// goal from move command
-	bool _stopAtEnd;
 
 	// obstacle management
 	ObstacleGroup _local_obstacles; /// set of obstacles added by plays
@@ -473,11 +480,13 @@ private:
 	Packet::RadioRx _radioRx;
 };
 
+/**
+ * @brief A robot that is not on our team
+ * @details This is a subclass of Robot, but really doesn't provide
+ * any extra functionality.
+ */
 class OpponentRobot: public Robot
 {
 public:
-	OpponentRobot(unsigned int shell):
-		Robot(shell, false)
-	{
-	}
+	OpponentRobot(unsigned int shell): Robot(shell, false) {}
 };

@@ -10,12 +10,11 @@
 				"sslrefbox",
 				"downloads",
 				"watchdog",
-				"firmware/external"
+				"firmware/external",
+				"api_docs"
 			],
 			"file_exclude_patterns": [
-				".*",
-				"DoxygenLayout.xml",
-				"Doxyfile"
+				".*"
 			]
 		}
 	],
