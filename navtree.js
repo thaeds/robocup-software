@@ -2,6 +2,7 @@ var NAVTREE =
 [
   [ "RoboCup SSL", "index.html", [
     [ "Gameplay", "md_soccer_doc__gameplay.html", null ],
+    [ "mainpage", "md_soccer_doc_mainpage.html", null ],
     [ "Motion Control", "md_soccer_doc__motion_control.html", null ],
     [ "Soccer", "md_soccer_doc__soccer.html", null ],
     [ "Vision", "md_soccer_doc__vision.html", null ],
@@ -33,18 +34,16 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"class_f_i_r_filter.html#af0bb4ddfe2e4a19bf50ca50850d0cb41",
+"class_f_i_r_filter.html#abbec32000dbc45aeec83f3b23a55e2a0",
 "class_gameplay_1_1_behaviors_1_1_kickoff.html#ad4c5ad2489db5d016bfb752e5ddd79d1a9d527704ffce0f84a3a8afe6fbf71e39",
-"class_gameplay_1_1_plays_1_1_basic_offense122.html",
-"class_gameplay_1_1_plays_1_1_our_goal_kick2.html#a553a247a2f45ee52258779b279a3cafb",
-"class_geometry2d_1_1_point.html#a0c53cdd9a83d4784f348d10ba59f09f1",
-"class_our_robot.html#a6b6f72c2cfb6c0c5ff1eff82904fc04a",
-"class_referee_tab.html#a98cad232460f0b99bc2107bfa7d699e5",
-"struct_robot_config_1_1_dynamics.html#a39f5934dcf21f2ca94573ac3d2457716"
+"class_gameplay_1_1_plays_1_1_basic_offense121.html#aee6e2fe6d07074c3deffdf269a869fd3",
+"class_gameplay_1_1_plays_1_1_our_goal_kick2.html#a50fbaf0dc7dadea9ad4291d9883ad3e9",
+"class_geometry2d_1_1_line.html#abe5a35bed4d3defd740a4adb9c1154f7",
+"class_our_robot.html#a808d23e992c9f6e6a40a8b9c35965e6e",
+"class_referee_tab.html#ae4bdb1d697d2f2790a6bdbb210e9424b",
+"struct_robot_config_1_1_dynamics.html#a95665bc2af6b93cdcd60e8152ffb1bcb"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
 var SYNCONMSG = 'click to disable panel synchronisation';
 var SYNCOFFMSG = 'click to enable panel synchronisation';
 var navTreeSubIndices = new Array();
@@ -127,12 +126,12 @@ function createIndent(o,domNode,node,level)
   var level=-1;
   var n = node;
   while (n.parentNode) { level++; n=n.parentNode; }
+  var imgNode = document.createElement("img");
+  imgNode.style.paddingLeft=(16*level).toString()+'px';
+  imgNode.width  = 16;
+  imgNode.height = 22;
+  imgNode.border = 0;
   if (node.childrenData) {
-    var imgNode = document.createElement("img");
-    imgNode.style.paddingLeft=(16*level).toString()+'px';
-    imgNode.width  = 16;
-    imgNode.height = 22;
-    imgNode.border = 0;
     node.plus_img = imgNode;
     node.expandToggle = document.createElement("a");
     node.expandToggle.href = "javascript:void(0)";
@@ -149,12 +148,8 @@ function createIndent(o,domNode,node,level)
     domNode.appendChild(node.expandToggle);
     imgNode.src = node.relpath+"ftv2pnode.png";
   } else {
-    var span = document.createElement("span");
-    span.style.display = 'inline-block';
-    span.style.width   = 16*(level+1)+'px';
-    span.style.height  = '22px';
-    span.innerHTML = '&#160;';
-    domNode.appendChild(span);
+    imgNode.src = node.relpath+"ftv2node.png";
+    domNode.appendChild(imgNode);
   } 
 }
 
@@ -373,7 +368,7 @@ function showNode(o, node, index, hash)
       if (!node.childrenVisited) {
         getNode(o, node);
       }
-      $(node.getChildrenUL()).css({'display':'block'});
+      $(node.getChildrenUL()).show();
       if (node.isLast) {
         node.plus_img.src = node.relpath+"ftv2mlastnode.png";
       } else {
@@ -405,22 +400,8 @@ function showNode(o, node, index, hash)
   }
 }
 
-function removeToInsertLater(element) {
-  var parentNode = element.parentNode;
-  var nextSibling = element.nextSibling;
-  parentNode.removeChild(element);
-  return function() {
-    if (nextSibling) {
-      parentNode.insertBefore(element, nextSibling);
-    } else {
-      parentNode.appendChild(element);
-    }
-  };
-}
-
 function getNode(o, po)
 {
-  var insertFunction = removeToInsertLater(po.li);
   po.childrenVisited = true;
   var l = po.childrenData.length-1;
   for (var i in po.childrenData) {
@@ -428,7 +409,6 @@ function getNode(o, po)
     po.children[i] = newNode(o, po, nodeData[0], nodeData[1], nodeData[2],
       i==l);
   }
-  insertFunction();
 }
 
 function gotoNode(o,subIndex,root,hash,relpath)
@@ -532,10 +512,7 @@ function initNavTree(toroot,relpath)
     navSync.click(function(){ toggleSyncButton(relpath); });
   }
 
-  $(window).load(function(){
-    navTo(o,toroot,window.location.hash,relpath);
-    showRoot();
-  });
+  navTo(o,toroot,window.location.hash,relpath);
 
   $(window).bind('hashchange', function(){
      if (window.location.hash && window.location.hash.length>1){
@@ -558,5 +535,7 @@ function initNavTree(toroot,relpath)
        navTo(o,toroot,window.location.hash,relpath);
      }
   })
+
+  $(window).load(showRoot);
 }
 

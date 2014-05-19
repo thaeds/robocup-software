@@ -7,9 +7,6 @@ var class_gameplay_1_1_behaviors_1_1_touch_kick =
     [ "enable_kick", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#ab1788544069719f467d63bd86517a213", null ],
     [ "kick_power", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#a908b20b297f3db2e53e033c88f624b05", null ],
     [ "kick_ready", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#af688e4e7d9eeec384b33dc078ed10a1b", null ],
-    [ "scaleAcc", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#a5ff36f75e27cc9ba5b904053d61246f1", null ],
-    [ "scaleSpeed", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#a0c0a07ae69502c7413319c86fcd450ba", null ],
-    [ "scaleW", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#a0d307687af02aed03a4d6b6c99c96a25", null ],
     [ "target", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#af317ba26ebec12bdbb80087272af909b", null ],
     [ "targetRot", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#ac4b96bc7e9d01a45481bb144996cdedc", null ],
     [ "use_chipper", "class_gameplay_1_1_behaviors_1_1_touch_kick.html#a92fc3e5b57bd22874a63f224d0b2ac99", null ]

@@ -1,11 +1,11 @@
 var class_geometry2d_1_1_point =
 [
-    [ "Optional", "class_geometry2d_1_1_point.html#a31dc6824f15301c22e7cd60941a17ada", null ],
     [ "Point", "class_geometry2d_1_1_point.html#a8e0ac151ee451f036d322d24677bc691", null ],
     [ "Point", "class_geometry2d_1_1_point.html#a36b9e202aef2c2c2cfb39386ac1dbfd3", null ],
     [ "Point", "class_geometry2d_1_1_point.html#a91366c0d2f3554b3a39e4b62ae1e9d70", null ],
     [ "angle", "class_geometry2d_1_1_point.html#a67ea60681c7172fa1ef5ad7b2e04174d", null ],
     [ "angleTo", "class_geometry2d_1_1_point.html#ace62e1a76e038d501c48e0435b737bbb", null ],
+    [ "clamp", "class_geometry2d_1_1_point.html#a2fcdfc771eda6de52ffb3cee4096f15f", null ],
     [ "cross", "class_geometry2d_1_1_point.html#af4c63a30226a9290e0e318f64274fff1", null ],
     [ "distTo", "class_geometry2d_1_1_point.html#a2c3908ca392de0f0416dc8a5b739374e", null ],
     [ "dot", "class_geometry2d_1_1_point.html#a1efb0c6ab5dea03efef9f8e599a2cbf2", null ],
@@ -23,6 +23,7 @@ var class_geometry2d_1_1_point =
     [ "operator-", "class_geometry2d_1_1_point.html#a2be1b69b1e6b2690d3c7269e0a1a62da", null ],
     [ "operator-", "class_geometry2d_1_1_point.html#a75d62178f5def7f127a53b564c91d0f1", null ],
     [ "operator-=", "class_geometry2d_1_1_point.html#a96036039e521aa1d06350af87a0e50cf", null ],
+    [ "operator/", "class_geometry2d_1_1_point.html#aa44b6c0b0cd399b1f57db2bbc1fb24f9", null ],
     [ "operator/", "class_geometry2d_1_1_point.html#a1d311a8cff730f09aa8a51a0dedf34c7", null ],
     [ "operator/=", "class_geometry2d_1_1_point.html#a384a0bb60f1498244ca2846785ae1f79", null ],
     [ "operator==", "class_geometry2d_1_1_point.html#a446c6e7344a32e17db98fcab3f14b2cc", null ],

@@ -2,6 +2,7 @@ var hierarchy =
 [
     [ "AutoName", "class_auto_name.html", [
       [ "Gameplay::Play", "class_gameplay_1_1_play.html", [
+        [ "Gameplay::Plays::AngleControlTest", "class_gameplay_1_1_plays_1_1_angle_control_test.html", null ],
         [ "Gameplay::Plays::BasicOffense121", "class_gameplay_1_1_plays_1_1_basic_offense121.html", null ],
         [ "Gameplay::Plays::BasicOffense122", "class_gameplay_1_1_plays_1_1_basic_offense122.html", null ],
         [ "Gameplay::Plays::CalSpeed", "class_gameplay_1_1_plays_1_1_cal_speed.html", null ],
@@ -43,6 +44,7 @@ var hierarchy =
         [ "Gameplay::Plays::PassPlay", "class_gameplay_1_1_plays_1_1_pass_play.html", null ],
         [ "Gameplay::Plays::PassShootPlay", "class_gameplay_1_1_plays_1_1_pass_shoot_play.html", null ],
         [ "Gameplay::Plays::RunAcrossTheField", "class_gameplay_1_1_plays_1_1_run_across_the_field.html", null ],
+        [ "Gameplay::Plays::RunLaps", "class_gameplay_1_1_plays_1_1_run_laps.html", null ],
         [ "Gameplay::Plays::SLKTest", "class_gameplay_1_1_plays_1_1_s_l_k_test.html", null ],
         [ "Gameplay::Plays::SolarSystem", "class_gameplay_1_1_plays_1_1_solar_system.html", null ],
         [ "Gameplay::Plays::Stopped", "class_gameplay_1_1_plays_1_1_stopped.html", null ],
@@ -114,7 +116,6 @@ var hierarchy =
       [ "ConfigurableImpl< T >", "class_configurable_impl.html", null ]
     ] ],
     [ "RobotConfig::Dynamics", "struct_robot_config_1_1_dynamics.html", null ],
-    [ "FaceTarget", "class_face_target.html", null ],
     [ "Gameplay::FieldEvaluator", "class_gameplay_1_1_field_evaluator.html", null ],
     [ "FIRFilter< T >", "class_f_i_r_filter.html", null ],
     [ "Chart::Function", "struct_chart_1_1_function.html", [
@@ -132,9 +133,8 @@ var hierarchy =
     ] ],
     [ "Logger", "class_logger.html", null ],
     [ "Gameplay::Luck_Options", "struct_gameplay_1_1_luck___options.html", null ],
-    [ "MotionCommand", "class_motion_command.html", null ],
+    [ "MotionConstraints", "struct_motion_constraints.html", null ],
     [ "MotionControl", "class_motion_control.html", null ],
-    [ "MotionTarget", "class_motion_target.html", null ],
     [ "noncopyable", null, [
       [ "Joystick", "class_joystick.html", null ]
     ] ],
