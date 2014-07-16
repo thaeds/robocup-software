@@ -17,11 +17,13 @@ using namespace Geometry2d;
 
 REGISTER_CONFIGURABLE(MotionControl);
 
-ConfigDouble *MotionControl::_pid_pos_p;
-ConfigDouble *MotionControl::_pid_pos_i;
-ConfigInt    * MotionControl::_pid_pos_i_windup;
-ConfigDouble *MotionControl::_pid_pos_d;
+ConfigDouble *MotionControl::_pid_vel_p;
+ConfigDouble *MotionControl::_pid_vel_i;
+ConfigInt    * MotionControl::_pid_vel_i_windup;
+// ConfigDouble *MotionControl::_pid_vel_d;
 ConfigDouble *MotionControl::_vel_mult;
+
+ConfigDouble *MotionControl::_pid_pos_p;
 
 ConfigDouble *MotionControl::_pid_angle_p;
 ConfigDouble *MotionControl::_pid_angle_i;
@@ -37,11 +39,12 @@ ConfigDouble *MotionControl::_path_jitter_compensation_factor;
 ConfigDouble *MotionControl::_pivot_vel_multiplier;
 
 void MotionControl::createConfiguration(Configuration *cfg) {
-	_pid_pos_p = new ConfigDouble(cfg, "MotionControl/pos/PID_p", 6.5);
-	_pid_pos_i = new ConfigDouble(cfg, "MotionControl/pos/PID_i", 0.0001);
-	_pid_pos_i_windup = new ConfigInt(cfg, "MotionControl/pos/PID_i_windup", 0);
-	_pid_pos_d = new ConfigDouble(cfg, "MotionControl/pos/PID_d", 2);
+	_pid_vel_p = new ConfigDouble(cfg, "MotionControl/pos/vel_PID_p", 6.5);
+	_pid_vel_i = new ConfigDouble(cfg, "MotionControl/pos/vel_PID_i", 0.0001);
+	_pid_vel_i_windup = new ConfigInt(cfg, "MotionControl/pos/vel_PID_i_windup", 0);
+	// _pid_vel_d = new ConfigDouble(cfg, "MotionControl/pos/vel_PID_d", 0);
 	_vel_mult = new ConfigDouble(cfg, "MotionControl/pos/Velocity Multiplier", 1);
+	_pid_pos_p = new ConfigDouble(cfg, "MotionControl/pos/PID_p", 1);
 
 	_pid_angle_p	= new ConfigDouble(cfg, "MotionControl/angle/PID_p", 1);
 	_pid_angle_i	= new ConfigDouble(cfg, "MotionControl/angle/PID_i", 0.00001);
@@ -74,14 +77,24 @@ void MotionControl::run() {
 	const MotionConstraints &constraints = _robot->motionConstraints();
 
 	//	update PID parameters
-	_positionXController.kp = *_pid_pos_p;
-	_positionXController.ki = *_pid_pos_i;
-	_positionXController.setWindup(*_pid_pos_i_windup);
-	_positionXController.kd = *_pid_pos_d;
-	_positionYController.kp = *_pid_pos_p;
-	_positionYController.ki = *_pid_pos_i;
-	_positionYController.setWindup(*_pid_pos_i_windup);
-	_positionYController.kd = *_pid_pos_d;
+	_velXController.kp = *_pid_vel_p;
+	_velXController.ki = *_pid_vel_i;
+	_velXController.setWindup(*_pid_vel_i_windup);
+	_velXController.kd = 0;	//*_pid_vel_d;
+
+	_velYController.kp = *_pid_vel_p;
+	_velYController.ki = *_pid_vel_i;
+	_velYController.setWindup(*_pid_vel_i_windup);
+	_velYController.kd = 0;	//*_pid_vel_d;
+
+	_posXController.kp = *_pid_pos_p;
+	_posXController.ki = 0;
+	_posXController.kd = 0;
+
+	_posYController.kp = *_pid_pos_p;
+	_posYController.ki = 0;
+	_posYController.kd = 0;
+
 	_angleController.kp = *_pid_angle_p;
 	_angleController.ki = *_pid_angle_i;
 	_angleController.kd = *_pid_angle_d;
@@ -173,14 +186,15 @@ void MotionControl::run() {
 	//	Position control ///////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////
 
-	Point targetVel;
+	//	the velocity command we're about to send to the bot
+	Point controlVel;
 
 	//	if no target position is given, we don't have a path to follow
 	if (!_robot->path()) {
 		if (!constraints.targetWorldVel) {
-			targetVel = Point(0, 0);
+			controlVel = Point(0, 0);
 		} else {
-			targetVel = constraints.targetWorldVel->rotated(-_robot->angle);
+			controlVel = constraints.targetWorldVel->rotated(-_robot->angle);
 		}
 	} else {
 		//
@@ -205,7 +219,7 @@ void MotionControl::run() {
 
 
 		//	evaluate path - where should we be right now?
-		Point targetPos;
+		Point targetPos, targetVel;
 		bool pathValidNow = _robot->path()->evaluate(
 			timeIntoPath,
 			targetPos,
@@ -213,24 +227,41 @@ void MotionControl::run() {
 		if (!pathValidNow) {
 			targetVel.x = 0;
 			targetVel.y = 0;
+			if (_robot->path()->destination()) {
+				targetPos = *(_robot->path()->destination());
+			}
 		}
-		//	tracking error
-		Point posError = targetPos - _robot->pos;
 
-		//	PID on position
-		targetVel.x += _positionXController.run(posError.x);
-		targetVel.y += _positionYController.run(posError.y);
+		//	error
+		Point posError = targetPos - _robot->pos;
+		Point velError = targetVel - _robot->vel;
+
+		//	run cascaded P PI controller
+		controlVel = targetVel;
+		Point velCtl = Point(_velXController.run(velError.x), _velYController.run(velError.y));
+		Point posCtl = Point(_posXController.run(posError.x), _posYController.run(posError.y));
+
+					// + Point(_velXController.run(velError.x + _posXController.run(posError.x)),
+					// 		_velYController.run(velError.y + _posYController.run(posError.y)));
+					// // + Point(_posXController.run(posError.x), _posYController.run(posError.y));
+
+		cout << "target: <" << targetVel.x << ", " << targetVel.y << ">" << endl;
+		cout << "velCtl: <" << velCtl.x << ", " << velCtl.y << ">" << endl;
+		cout << "posCtl: <" << posCtl.x << ", " << posCtl.y << ">" << endl;
+
+		controlVel += velCtl + posCtl;
+
 
 		//	draw target pt
 		_robot->state()->drawCircle(targetPos, .04, Qt::red, "MotionControl");
-		_robot->state()->drawLine(targetPos, targetPos + targetVel, Qt::blue, "velocity");
-		_robot->state()->drawText(QString("%1").arg(timeIntoPath), targetPos, Qt::black, "time");
+		_robot->state()->drawLine(targetPos, targetPos + controlVel, Qt::blue, "velocity");
+		// _robot->state()->drawText(QString("%1").arg(timeIntoPath), targetPos, Qt::black, "time");
 
 		//	convert from world to body coordinates
-		targetVel = targetVel.rotated(-_robot->angle);
+		controlVel = controlVel.rotated(-_robot->angle);
 	}
 
-	this->_targetBodyVel(targetVel);
+	this->_targetBodyVel(controlVel);
 }
 
 void MotionControl::stopped() {

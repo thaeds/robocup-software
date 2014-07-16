@@ -49,15 +49,18 @@ private:
 	Geometry2d::Point _lastVelCmd;	//	the last velocity (in m/s, not the radioTx value) command that we sent to the robot
 	long _lastCmdTime;	//	the time in microseconds when the last velocity command was sent
 
-	Pid _positionXController;
-	Pid _positionYController;
+	Pid _velXController;
+	Pid _velYController;
+	Pid _posXController;
+	Pid _posYController;
 	Pid _angleController;
 
-	static ConfigDouble *_pid_pos_p;
-	static ConfigDouble *_pid_pos_i;
-	static ConfigInt    *_pid_pos_i_windup;
-	static ConfigDouble *_pid_pos_d;
+	static ConfigDouble *_pid_vel_p;
+	static ConfigDouble *_pid_vel_i;
+	static ConfigInt    *_pid_vel_i_windup;
+	// static ConfigDouble *_pid_vel_d;
 	static ConfigDouble *_vel_mult;
+	static ConfigDouble *_pid_pos_p;
 
 	static ConfigDouble *_pid_angle_p;
 	static ConfigDouble *_pid_angle_i;

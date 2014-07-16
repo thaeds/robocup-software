@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <simulation>
+    <!-- if this line is not present, there will be no ball -->
     <ball x="0" y="0" />
 
-    <blue>
-    	<robot id="0" x="1.5" y="0" />
-    </blue>
+    <field />
 
+	<!-- configure yellow team robots -->
     <yellow>
-        <robot id="0" x="-1.5" y="0" />
+        <robot id="2" x="-2" y="0" />
     </yellow>
+
+    <vision>
+        <!-- noise, fps, dropout model -->
+    </vision>
+
+    <radio>
+        <!-- packet loss rate -->
+    </radio>
 
 </simulation>

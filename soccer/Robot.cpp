@@ -592,18 +592,18 @@ void OurRobot::replanIfNeeded(const Geometry2d::CompositeShape& global_obstacles
 		_pathInvalidated = true;
 	}
 
-	//  invalidate path if current position is more than 15cm from the planned point
-	if (_path) {
-		float maxDist = 0.30;
-		Point targetPathPos;
-		Point targetVel;
-		float timeIntoPath = ((float)(timestamp() - _pathStartTime)) * TimestampToSecs;
-		_path->evaluate(timeIntoPath, targetPathPos, targetVel);
-		float pathError = (targetPathPos - pos).mag();
-		if (pathError > maxDist) {
-			_pathInvalidated = true;
-		}
-	}
+	// //  invalidate path if current position is more than 15cm from the planned point
+	// if (_path) {
+	// 	float maxDist = 0.30;
+	// 	Point targetPathPos;
+	// 	Point targetVel;
+	// 	float timeIntoPath = ((float)(timestamp() - _pathStartTime)) * TimestampToSecs;
+	// 	_path->evaluate(timeIntoPath, targetPathPos, targetVel);
+	// 	float pathError = (targetPathPos - pos).mag();
+	// 	if (pathError > maxDist) {
+	// 		_pathInvalidated = true;
+	// 	}
+	// }
 	
 	
 	//	if the destination of the current path is greater than X m away from the target destination,
