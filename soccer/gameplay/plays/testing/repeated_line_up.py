@@ -53,17 +53,21 @@ class RepeatedLineUp(play.Play):
 
 
     def on_enter_left(self):
+        if self.has_subbehavior_with_name('LineUp'):
+            self.remove_subbehavior('LineUp')
         self.side_start = time.time()
         self.add_subbehavior(tactics.line_up.LineUp(self.generate_line(-1)), 'LineUp')
     def on_exit_left(self):
-        self.remove_subbehavior('LineUp')
+        # self.remove_subbehavior('LineUp')
         self.prev_side = RepeatedLineUp.State.left
 
     def on_enter_right(self):
+        if self.has_subbehavior_with_name('LineUp'):
+            self.remove_subbehavior('LineUp')
         self.side_start = time.time()
         self.add_subbehavior(tactics.line_up.LineUp(self.generate_line(1)), 'LineUp')
     def on_exit_right(self):
-        self.remove_subbehavior('LineUp')
+        # self.remove_subbehavior('LineUp')
         self.prev_side = RepeatedLineUp.State.right
 
     def on_enter_pause(self):

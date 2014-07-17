@@ -237,9 +237,8 @@ void MotionControl::run() {
 		Point velError = targetVel - _robot->vel;
 
 		//	run cascaded P PI controller
-		controlVel = targetVel;
-		Point velCtl = Point(_velXController.run(velError.x), _velYController.run(velError.y));
-		Point posCtl = Point(_posXController.run(posError.x), _posYController.run(posError.y));
+		Point velCtl = Point(_velXController.run(velError.x + _posXController.run(posError.x)),
+			_velYController.run(velError.y + _posYController.run(posError.y)));
 
 					// + Point(_velXController.run(velError.x + _posXController.run(posError.x)),
 					// 		_velYController.run(velError.y + _posYController.run(posError.y)));
@@ -247,9 +246,8 @@ void MotionControl::run() {
 
 		cout << "target: <" << targetVel.x << ", " << targetVel.y << ">" << endl;
 		cout << "velCtl: <" << velCtl.x << ", " << velCtl.y << ">" << endl;
-		cout << "posCtl: <" << posCtl.x << ", " << posCtl.y << ">" << endl;
 
-		controlVel += velCtl + posCtl;
+		controlVel = targetVel + velCtl;
 
 
 		//	draw target pt
