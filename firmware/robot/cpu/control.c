@@ -61,6 +61,11 @@ static void dumb_update()
 		last_out[i] = motor_out[i];
 	}
 	motor_out[4] = dribble_command >> 1;
+
+	//	this used to be in pid_update
+	if (!base2008) {
+		motor_out[4] = -dribble_command;
+	}
 }
 
 ////////
@@ -176,15 +181,18 @@ static void pid_init(int argc, const char *argv[])
 
 static void pid_update()
 {
-	if (base2008)
-	{
+	// if (base2008)
+	// {
 		// Nope
-		for (int i = 0; i < 5; ++i)
-		{
-			drive_mode[i] = DRIVE_OFF;
-		}
-		return;
+
+
+	//	disable PID update - there are no encoders
+	for (int i = 0; i < 5; ++i)
+	{
+		drive_mode[i] = DRIVE_OFF;
 	}
+	return;
+	// }
 	
 	for (int i = 0; i < 5; ++i)
 	{

@@ -221,12 +221,8 @@ int main()
 	if (showstoppers == 0)
 	{
 		// DP1 on => PD controller, off => dumb controller
-		if (base2008)
-		{
-			default_controller = &controllers[0];
-		} else {
-			default_controller = &controllers[1];
-		}
+		//	use dumb controller for both 2008 and 2011
+		default_controller = &controllers[0];
 		if (!(SWITCHES & DP2))
 		{
 			controller = default_controller;
