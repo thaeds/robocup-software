@@ -73,6 +73,7 @@ class PivotKick(single_robot_composite_behavior.SingleRobotCompositeBehavior, sk
         # default parameters
         self.dribbler_power = constants.Robot.Dribbler.MaxPower
         self.aim_params = {'desperate_timeout': float("inf")}
+        self.max_angle_vel = 6
         
 
     # The speed to drive the dribbler at during aiming
@@ -96,6 +97,13 @@ class PivotKick(single_robot_composite_behavior.SingleRobotCompositeBehavior, sk
     @aim_params.setter
     def aim_params(self, value):
         self._aim_params = value
+
+    @property
+    def max_angle_vel(self):
+        return self._max_angle_vel
+    @max_angle_vel.setter
+    def max_angle_vel(self, value):
+        self._max_angle_vel = value
     
 
     # The point near the target point that we're currently aimed at, whether we want to be or not
@@ -148,6 +156,7 @@ class PivotKick(single_robot_composite_behavior.SingleRobotCompositeBehavior, sk
             aim = skills.aim.Aim()
             self.add_subbehavior(aim, 'aim', required=True)
             self.set_aim_params()
+            aim.max_angle_vel = self.max_angle_vel
 
     def execute_aiming(self):
         self.set_aim_params()

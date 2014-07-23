@@ -54,6 +54,7 @@ class Aim(single_robot_behavior.SingleRobotBehavior):
         self.max_steady_ang_vel = 4
         self.min_steady_duration = 0.1
         self.dribbler_speed = int(constants.Robot.Dribbler.MaxPower / 2.0)
+        self.max_angle_vel = 6
 
         self.last_ball_time = 0
 
@@ -128,6 +129,12 @@ class Aim(single_robot_behavior.SingleRobotBehavior):
     def min_steady_duration(self, value):
         self._min_steady_duration = value
 
+    @property
+    def max_angle_vel(self):
+        return self._max_angle_vel
+    @max_angle_vel.setter
+    def max_angle_vel(self, value):
+        self._max_angle_vel = value
 
     # returns True if we're aimed at our target within our error thresholds and we're not rotating too fast
     def is_aimed(self):
@@ -216,7 +223,7 @@ class Aim(single_robot_behavior.SingleRobotBehavior):
         self.recalculate()
 
         # slowly pivot toward the target
-        self.robot.set_max_angle_speed(6)
+        self.robot.set_max_angle_speed(self.max_angle_vel)
         self.robot.pivot(self._face_target)
         self.robot.set_dribble_speed(self.dribbler_speed)
 

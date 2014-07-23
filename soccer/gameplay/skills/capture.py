@@ -12,7 +12,7 @@ class Capture(single_robot_behavior.SingleRobotBehavior):
     CourseApproachErrorThresh = 0.8
     CourseApproachDist = 0.18
     CourseApproachAvoidBall = 0.10
-    DribbleSpeed = 100
+    DribbleSpeed = 105
     FineApproachSpeed = 0.2
 
 

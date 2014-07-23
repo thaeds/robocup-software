@@ -13,8 +13,8 @@ import role_assignment
 
 class ShortPass(composite_behavior.CompositeBehavior):
 
-    PassLength = 0.75
-    KickPower = 17
+    PassLength = 0.5
+    KickPower = 13
     KickThreshold = 0.1
 
     class State(enum.Enum):
@@ -54,8 +54,9 @@ class ShortPass(composite_behavior.CompositeBehavior):
             'receiver misses ball')
 
         self.kicker.kick_power = ShortPass.KickPower
-        self.kicker.aim_params['max_steady_ang_vel'] = 10
-        self.kicker.aim_params['min_steady_duration'] = 0.01
+        self.kicker.aim_params['max_steady_ang_vel'] = 8
+        self.kicker.aim_params['min_steady_duration'] = 0.05
+        self.kicker.max_angle_vel = 3
         self.add_subbehavior(self.kicker, 'kicker', required=True)
 
         self.movers = [skills.move.Move(), skills.move.Move()]
@@ -93,6 +94,7 @@ class ShortPass(composite_behavior.CompositeBehavior):
     def execute_receive(self):
         r = self.subbehavior_with_name('intercept').robot
         if r is not None:
+            r.set_dribble_speed(90)
             away_from_ball = (r.pos - main.ball().pos).normalized()
             if r.pos.dist_to(main.ball().pos) < 0.3:
                 r.set_world_vel(away_from_ball * 0.5)
