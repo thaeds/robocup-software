@@ -14,7 +14,7 @@ import role_assignment
 class ShortPass(composite_behavior.CompositeBehavior):
 
     PassLength = 0.75
-    KickPower = 70
+    KickPower = 17
     KickThreshold = 0.1
 
     class State(enum.Enum):
@@ -93,7 +93,6 @@ class ShortPass(composite_behavior.CompositeBehavior):
     def execute_receive(self):
         r = self.subbehavior_with_name('intercept').robot
         if r is not None:
-            print("robot!")
             away_from_ball = (r.pos - main.ball().pos).normalized()
             if r.pos.dist_to(main.ball().pos) < 0.3:
                 r.set_world_vel(away_from_ball * 0.5)
