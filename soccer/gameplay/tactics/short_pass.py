@@ -80,13 +80,23 @@ class ShortPass(composite_behavior.CompositeBehavior):
 
         receiver_number, self.kicker.target = self.pick_closest_receiver()
         if receiver_number != -1 and self.movers[receiver_number].pos.dist_to(self.movers[receiver_number].robot.pos) > ShortPass.KickThreshold:
-            self.kicker.robot.unkick()
+            self.kicker.enable_kick = False
+        else:
+            self.kicker.enable_kick = True
 
     def on_enter_receive(self):
         # self.remove_subbehavior('kicker')
         self.remove_subbehavior('mover0')
         self.remove_subbehavior('mover1')
         self.add_subbehavior(skills.intercept.Intercept(), 'intercept', required=True)
+
+    def execute_receive(self):
+        r = self.subbehavior_with_name('intercept').robot
+        if r is not None:
+            print("robot!")
+            away_from_ball = (r.pos - main.ball().pos).normalized()
+            if r.pos.dist_to(main.ball().pos) < 0.3:
+                r.set_world_vel(away_from_ball * 0.5)
 
     def on_exit_receive(self):
         self.remove_subbehavior('intercept')
