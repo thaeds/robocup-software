@@ -110,6 +110,13 @@ class RoleRequirements:
         self._priority = value
 
 
+    def __repr__(self):
+        desc = "RoleRequirements:"
+        for part in map(lambda prop: "    \n" + prop + "=" +str( getattr(self, prop)) if getattr(self, prop) != None else "", ["destination_shape", "previous_shell_id", "required_shell_id", "position_cost_multiplier", "destination_shape"]):
+            desc += part
+        return desc
+
+
 
 # given a role requirements tree (with RoleRequirements or assignment tuples as leaves),
 # yields all of the RoleRequiements objects
@@ -134,7 +141,7 @@ MaxWeight = 10000000
 DefaultPositionCostMultiplier = 1.0
 
 # how much penalty is there for switching robots mid-play
-RobotChangeCost = 1.0
+RobotChangeCost = 2.5
 
 # a default weight for preferring a chipper
 # this is tunable
@@ -208,7 +215,7 @@ def assign_roles(robots, role_reqs):
             else:
                 if req.destination_shape != None:
                     cost += req.position_cost_multiplier * req.destination_shape.dist_to(robot.pos)
-                if req.previous_shell_id != None and req.previous_shell_id != robot.shell_id:
+                if req.previous_shell_id != None and req.previous_shell_id != robot.shell_id():
                     cost += RobotChangeCost
                 if not robot.has_chipper():
                     cost += req.chipper_preference_weight

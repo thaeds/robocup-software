@@ -34,10 +34,10 @@ class ShortPassOffense (play.Play):
     def role_requirements(self):
         reqs = super().role_requirements()
         if self.prev_receiver is not None:
-            # for req in role_assignment.iterate_role_requirements_tree_leaves(reqs):
-            #     req.previous_shell_id = None
+            for req in role_assignment.iterate_role_requirements_tree_leaves(reqs):
+                req.previous_shell_id = None
             if 'kicker' in reqs['pass']:
                 for req in role_assignment.iterate_role_requirements_tree_leaves(reqs['pass']['kicker']):
                     req.previous_shell_id = self.prev_receiver.shell_id()
-                    # req.has_ball = True
+
         return reqs
