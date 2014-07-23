@@ -1,160 +1,143 @@
-# import composite_behavior
-# import behavior
-# import skills.pivot_kick
-# import skills.pass_receive
-# import constants
-# import robocup
-# import time
-# import main
-# import enum
-# import logging
+import composite_behavior
+import behavior
+import skills
+import constants
+import robocup
+import time
+import main
+import enum
+import logging
+import math
+import role_assignment
 
 
-# # This handles passing from one bot to another
-# # Simply run it and set it's receive point, the rest is handled for you
-# # It starts out by assigning a kicker and a receiver and instructing them to lineup for the pass
-# # Once they're aligned, the kicker kicks and the receiver adjusts itself based on the ball's movement
-# # Note: due to mechanical limitations, a kicker often gets stuck trying to adjust its angle while it's just outside of it's
-# #       aim error threshold.  If this happens, the CoordinatedPass will adjust the receive point slightly
-# #       because it's easier to move the receiver over a bit than have the kicker adjust its angle.  This solves
-# #       the problem of having a pass get stuck indefinitely while the kicker sits there not moving.
-# # TODO: # If an opponent blocks the pass channel, it will wait until it moves - you can cancel it at this point if you wish
-# # As soon as the kicker kicks, it is no longer and is released by this behavior so other behaviors can be assigned to it
-# # If the receiver gets the ball, CoordinatedPass transitions to the completed state, otherwise it goes to the failed state
-# class ShortPass(composite_behavior.CompositeBehavior):
+class ShortPass(composite_behavior.CompositeBehavior):
 
-#     KickPower = 30 # was25
+    PassLength = 0.75
+    KickPower = 70
+    KickThreshold = 0.1
 
+    class State(enum.Enum):
+        setup = 0
+        receive = 1
 
-#     class State(enum.Enum):
-#         preparing = 1   # the kicker is aiming and the receiver is getting ready
-#         kicking = 2     # waiting for the kicker to kick
-#         receiving = 3   # the kicker has kicked and the receiver is trying to get the ball
+    def __init__(self):
+        super().__init__(continuous=False)
 
+        self.kicker = skills.pivot_kick.PivotKick()
+        self.receiver = None
 
-#     def __init__(self, receive_point=None):
-#         super().__init__(continuous=False)
+        self.add_state(ShortPass.State.setup, behavior.Behavior.State.running)
+        self.add_state(ShortPass.State.receive, behavior.Behavior.State.running)
 
-#         self.receive_point = receive_point
+        self.add_transition(behavior.Behavior.State.start,
+            ShortPass.State.setup,
+            lambda: True,
+            'immediately')
 
-#         for state in CoordinatedPass.State:
-#             self.add_state(state, behavior.Behavior.State.running)
+        self.add_transition(ShortPass.State.setup,
+            ShortPass.State.receive,
+            lambda: self.kicker.is_done_running(),
+            'ball kicked')
 
+        self.add_transition(ShortPass.State.receive,
+            behavior.Behavior.State.completed,
+            lambda: self.receiver is not None and self.receiver.pos.dist_to(main.ball().pos) < ( constants.Robot.Radius + 0.05 ),
+            'receiver gets ball')
 
-#         self.add_transition(behavior.Behavior.State.start,
-#             CoordinatedPass.State.preparing,
-#             lambda: True,
-#             'immediately')
+        """
+        TODO check whether the ball is moving towards or away from the receiver
+        """
+        self.add_transition(ShortPass.State.receive,
+            behavior.Behavior.State.failed,
+            lambda: self.receiver is None or self.receiver.pos.dist_to(main.ball().pos) > 1,
+            'receiver misses ball')
 
-#         self.add_transition(CoordinatedPass.State.preparing,
-#             CoordinatedPass.State.kicking,
-#             lambda: (self.subbehavior_with_name('kicker').state == skills.pivot_kick.PivotKick.State.aimed
-#                 and self.subbehavior_with_name('receiver').state == skills.pass_receive.PassReceive.State.aligned),
-#             'kicker and receiver ready')
+        self.kicker.kick_power = ShortPass.KickPower
+        self.kicker.aim_params['max_steady_ang_vel'] = 10
+        self.kicker.aim_params['min_steady_duration'] = 0.01
+        self.add_subbehavior(self.kicker, 'kicker', required=True)
 
-#         self.add_transition(CoordinatedPass.State.kicking,
-#             CoordinatedPass.State.receiving,
-#             lambda: self.subbehavior_with_name('kicker').state == behavior.Behavior.State.completed,
-#             'kicker kicked')
+        self.movers = [skills.move.Move(), skills.move.Move()]
 
-#         self.add_transition(CoordinatedPass.State.receiving,
-#             behavior.Behavior.State.completed,
-#             lambda: self.subbehavior_with_name('receiver').state == behavior.Behavior.State.completed,
-#             'pass received!')
+    def on_enter_setup(self):
+        self.kicker.restart()
+        for i in range(2):
+            mover = self.movers[i]
+            self.add_subbehavior(mover, 'mover' + str(i), required=False)
+            mover.threshold = 0.025
 
-#         self.add_transition(CoordinatedPass.State.receiving,
-#             behavior.Behavior.State.failed,
-#             lambda: self.subbehavior_with_name('receiver').state == behavior.Behavior.State.failed,
-#             'pass failed :(')
-
-
-#     # set the location where the receiving bot should camp out and wait for the ball
-#     # Default: None
-#     @property
-#     def receive_point(self):
-#         return self._receive_point
-#     @receive_point.setter
-#     def receive_point(self, value):
-#         self._receive_point = value
-
-#         # set receive_point for kicker and receiver (if present)
-#         if self.has_subbehavior_with_name('kicker'):
-#             self.subbehavior_with_name('kicker').target = self.receive_point
-#         if self.has_subbehavior_with_name('receiver'):
-#             self.subbehavior_with_name('receiver').receive_point = self.receive_point
+    def execute_setup(self):
+        receive_points = self.get_receive_points()
+        target = constants.Field.TheirGoalSegment.center()
+        for i in range(len(receive_points)):
+            if i < 2:
+                self.movers[i].pos = receive_points[i]
+                main.system_state().draw_circle(receive_points[i], constants.Robot.Radius, (255,255,255), "Debug")
+                if self.movers[i].robot is not None:
+                    self.movers[i].robot.face(main.ball().pos)
 
 
+        receiver_number, self.kicker.target = self.pick_closest_receiver()
+        if receiver_number != -1 and self.movers[receiver_number].pos.dist_to(self.movers[receiver_number].robot.pos) > ShortPass.KickThreshold:
+            self.kicker.robot.unkick()
 
-#     def on_enter_running(self):
-#         receiver = skills.pass_receive.PassReceive()
-#         receiver.receive_point = self.receive_point
-#         self.add_subbehavior(receiver, 'receiver', required=True)
+    def on_enter_receive(self):
+        # self.remove_subbehavior('kicker')
+        self.remove_subbehavior('mover0')
+        self.remove_subbehavior('mover1')
+        self.add_subbehavior(skills.intercept.Intercept(), 'intercept', required=True)
 
+    def on_exit_receive(self):
+        self.remove_subbehavior('intercept')
 
-#     def on_exit_running(self):
-#         self.remove_subbehavior('receiver')
+    def pick_closest_receiver(self):
+        dist0 = self.movers[0].robot.pos.dist_to(self.movers[0].pos) if self.movers[0].robot is not None and self.movers[0].pos is not None else float("inf")
+        dist1 = self.movers[1].robot.pos.dist_to(self.movers[1].pos) if self.movers[1].robot is not None and self.movers[1].pos is not None else float("inf")
+        if dist0 == float('inf') and dist1 == float('inf'):
+            self.receiver = None
+            return (-1,constants.Field.TheirGoalSegment.center())
+        self.receiver = self.movers[0].robot if dist0 < dist1 else self.movers[1].robot
+        return (0 if dist0 < dist1 else 1, self.movers[0].robot.pos if dist0 < dist1 else self.movers[1].robot.pos)
 
+    def get_receive_points(self):
+        receive_points = list()
+        receiver_arc = robocup.Circle(main.ball().pos, ShortPass.PassLength)
+        # main.system_state().draw_circle(receiver_arc.center, receiver_arc.get_radius(), (255,0,0), "Debug")
+        angle = 0
+        start = -1
+        last = -1
+        while angle <= math.pi:
+            seg = robocup.Segment(main.ball().pos, main.ball().pos + robocup.Point.direction(angle)*ShortPass.PassLength)
+            is_open = True
+            for robot in main.their_robots():
+                if seg.dist_to(robot.pos) <= constants.Robot.Radius:
+                    is_open = False
+                    break
+            if (not is_open) or abs(angle - math.pi) < 0.2:
+                # main.system_state().draw_line(seg, (255,0,0), "Debug")
+                if start is not -1:
+                    if (last-start) > math.pi/6:
+                        avg = (start + last) / 2
+                        avg_seg = robocup.Segment(main.ball().pos, main.ball().pos + robocup.Point.direction(avg)*ShortPass.PassLength)
+                        receive_points.append(main.ball().pos + robocup.Point.direction(avg)*ShortPass.PassLength)
+                        # main.system_state().draw_line(avg_seg, (0,255,0), "Debug")
+                    start = -1
+            elif start is -1:
+                start = angle
 
-#     def on_enter_kicking(self):
-#         self.subbehavior_with_name('kicker').enable_kick = True
+            last = angle
+            
+            # main.system_state().draw_line(seg, (0,0,255) if is_open else (255,0,0), "Debug")
 
+            angle += math.pi/30.
 
-#     def on_enter_preparing(self):
-#         kicker = skills.pivot_kick.PivotKick()
-#         kicker.target = self.receive_point
-#         kicker.kick_power = CoordinatedPass.KickPower
-#         kicker.enable_kick = False # we'll re-enable kick once both bots are ready
-
-#         # we use tighter error thresholds because passing is hard
-#         kicker.aim_params['error_threshold'] = 0.07
-#         kicker.aim_params['max_steady_ang_vel'] = 3.0
-#         kicker.aim_params['min_steady_duration'] = 0.15
-#         kicker.aim_params['desperate_timeout'] = 3.0
-#         self.add_subbehavior(kicker, 'kicker', required=True)
-
-#         # receive point renegotiation
-#         self._last_unsteady_time = None
-#         self._has_renegotiated_receive_point = False
-
-
-#     def execute_running(self):
-#         # The shot obstacle doesn't apply to the receiver
-#         if self.has_subbehavior_with_name('kicker'):
-#             kicker = self.subbehavior_with_name('kicker')
-#             receiver = self.subbehavior_with_name('receiver')
-#             kicker.shot_obstacle_ignoring_robots = [receiver.robot]
-
-
-
-#     def execute_preparing(self):
-#         kicker = self.subbehavior_with_name('kicker')
-
-#         # receive point renegotiation
-#         # if the kicker sits there aiming close to target and gets stuck,
-#         # we set the receive point to the point the kicker is currently aiming at
-#         if kicker.current_shot_point() != None and not self._has_renegotiated_receive_point:
-#             if (not kicker.is_steady()
-#                 and kicker.state == skills.pivot_kick.PivotKick.State.aiming):
-#                 self._last_unsteady_time = time.time()
-
-#             if (self._last_unsteady_time != None
-#                 and time.time() - self._last_unsteady_time > 0.75
-#                 and kicker.current_shot_point().dist_to(self.receive_point) < 0.1):
-#                 # renegotiate receive_point
-#                 logging.info("Pass renegotiated RCV PT")
-#                 self.receive_point = kicker.current_shot_point()
-#                 self._has_renegotiated_receive_point = True
+        return receive_points
 
 
-#     def on_enter_receiving(self):
-#         # once the ball's been kicked, the kicker can go relax or do another job
-#         self.remove_subbehavior('kicker')
-
-#         self.subbehavior_with_name('receiver').ball_kicked = True
-
-
-
-#     def __str__(self):
-#         desc = super().__str__()
-#         desc += "\n    rcv_pt=" + str(self.receive_point)
-#         return desc
+    def role_requirements(self):
+        reqs = super().role_requirements()
+        if 'intercept' in reqs:
+            for r in role_assignment.iterate_role_requirements_tree_leaves(reqs['intercept']):
+                r.previous_shell_id = self.receiver.shell_id()
+        return reqs

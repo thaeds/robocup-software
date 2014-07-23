@@ -16,6 +16,7 @@ class RoleRequirements:
         self.required = False
         self.priority = 0
         self.require_kicking = False
+        self.position_cost_multiplier = DefaultPositionCostMultiplier
 
 
     @property
@@ -26,6 +27,15 @@ class RoleRequirements:
         if value != None and not ( isinstance(value, robocup.Point) or isinstance(value, robocup.Segment) ):
             raise TypeError("Unexpected type for destination_shape: " + str(value))
         self._destination_shape = value
+
+
+    @property
+    def position_cost_multiplier(self):
+        return self._position_cost_multiplier
+    @position_cost_multiplier.setter
+    def position_cost_multiplier(self, value):
+        self._position_cost_multiplier = value
+
 
 
     @property
@@ -121,7 +131,7 @@ MaxWeight = 10000000
 
 
 # multiply this by the distance between two points to get the cost
-PositionCostMultiplier = 1.0
+DefaultPositionCostMultiplier = 1.0
 
 # how much penalty is there for switching robots mid-play
 RobotChangeCost = 1.0
@@ -197,7 +207,7 @@ def assign_roles(robots, role_reqs):
                 cost = MaxWeight
             else:
                 if req.destination_shape != None:
-                    cost += PositionCostMultiplier * req.destination_shape.dist_to(robot.pos)
+                    cost += req.position_cost_multiplier * req.destination_shape.dist_to(robot.pos)
                 if req.previous_shell_id != None and req.previous_shell_id != robot.shell_id:
                     cost += RobotChangeCost
                 if not robot.has_chipper():

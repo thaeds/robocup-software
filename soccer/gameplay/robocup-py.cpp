@@ -234,6 +234,14 @@ boost::python::list Circle_intersects_line(Geometry2d::Circle *self, const Geome
 	return lst;
 }
 
+float Circle_get_radius(Geometry2d::Circle *self) {
+	return self->radius();
+}
+
+void Circle_set_radius(Geometry2d::Circle *self, float value) {
+	self->radius(value);
+}
+
 /**
  * The code in this block wraps up c++ classes and makes them
  * accessible to python in the 'robocup' module.
@@ -302,6 +310,9 @@ BOOST_PYTHON_MODULE(robocup)
 	class_<Geometry2d::Circle, bases<Geometry2d::Shape> >("Circle", init<Geometry2d::Point, float>())
 		.def("intersects_line", &Circle_intersects_line)
 		.def("nearest_point", &Geometry2d::Circle::nearestPoint)
+		.def_readwrite("center", &Geometry2d::Circle::center)
+		.def("get_radius", &Circle_get_radius)
+		.def("set_radius", &Circle_set_radius)
 	;
 
 	class_<Geometry2d::CompositeShape, bases<Geometry2d::Shape> >("CompositeShape", init<>())
