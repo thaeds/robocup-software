@@ -13,8 +13,8 @@ import role_assignment
 
 class ShortPass(composite_behavior.CompositeBehavior):
 
-    PassLength = 0.5
-    KickPower = 13
+    PassLength = 0.75
+    KickPower = 70 # 15 # 15 is for real field
     KickThreshold = 0.1
 
     class State(enum.Enum):
@@ -55,7 +55,7 @@ class ShortPass(composite_behavior.CompositeBehavior):
 
         self.kicker.kick_power = ShortPass.KickPower
         self.kicker.aim_params['max_steady_ang_vel'] = 8
-        self.kicker.aim_params['min_steady_duration'] = 0.05
+        self.kicker.aim_params['min_steady_duration'] = 0.1
         self.kicker.max_angle_vel = 3
         self.add_subbehavior(self.kicker, 'kicker', required=True)
 
