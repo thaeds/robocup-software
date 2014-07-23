@@ -1,3 +1,65 @@
+import sys
+import os
+
+
+
+# Pretty Scons output
+################################################################
+# see http://www.scons.org/wiki/ColorBuildMessages for more info
+
+colors = {
+    'cyan': '\033[96m',
+    'purple': '\033[95m',
+    'blue':   '\033[94m',
+    'green':  '\033[92m',
+    'yellow': '\033[93m',
+    'red':    '\033[91m',
+    'end':    '\033[0m'
+}
+
+# clear colors if output is not a terminal
+if not sys.stdout.isatty():
+    for key, value in colors.iteritems():
+        colors[key] = ''
+
+compile_source_message = '%sCompiling %s==> %s$SOURCE%s' % \
+    (colors['blue'], colors['purple'], colors['yellow'], colors['end'])
+
+compile_shared_source_message = '%sCompiling shared %s==> %s$SOURCE%s' % \
+    (colors['blue'], colors['purple'], colors['yellow'], colors['end'])
+
+link_program_message = '%sLinking Program %s==> %s$TARGET%s' % \
+    (colors['red'], colors['purple'], colors['yellow'], colors['end'])
+
+link_library_message = '%sLinking Static Library %s==> %s$TARGET%s' % \
+    (colors['red'], colors['purple'], colors['yellow'], colors['end'])
+
+ranlib_library_message = '%sRanlib Library %s==> %s$TARGET%s' % \
+    (colors['red'], colors['purple'], colors['yellow'], colors['end'])
+
+link_shared_library_message = '%sLinking Shared Library %s==> %s$TARGET%s' % \
+    (colors['red'], colors['purple'], colors['yellow'], colors['end'])
+
+java_library_message = '%sCreating Java Archive %s==> %s$TARGET%s' % \
+    (colors['red'], colors['purple'], colors['yellow'], colors['end'])
+
+env = Environment(
+    CXXCOMSTR = compile_source_message,
+    CCCOMSTR = compile_source_message,
+    SHCCCOMSTR = compile_shared_source_message,
+    SHCXXCOMSTR = compile_shared_source_message,
+    ARCOMSTR = link_library_message,
+    RANLIBCOMSTR = ranlib_library_message,
+    SHLINKCOMSTR = link_shared_library_message,
+    LINKCOMSTR = link_program_message,
+    JARCOMSTR = java_library_message,
+    JAVACCOMSTR = compile_source_message,
+
+    tools = ['default', 'textfile']
+)
+
+
+
 # Remove the build directory when cleaning
 Clean('.', 'build')
 
@@ -8,7 +70,6 @@ Export('exec_dir')
 build_dir = Dir('#/build')
 Export('build_dir')
 
-env = Environment(tools=['default', 'textfile'])  
 
 # http://www.scons.org/wiki/GoFastButton
 env.Decider('MD5-timestamp')
