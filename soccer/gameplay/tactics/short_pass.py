@@ -45,12 +45,9 @@ class ShortPass(composite_behavior.CompositeBehavior):
             lambda: self.receiver is not None and self.receiver.pos.dist_to(main.ball().pos) < ( constants.Robot.Radius + 0.05 ),
             'receiver gets ball')
 
-        """
-        TODO check whether the ball is moving towards or away from the receiver
-        """
         self.add_transition(ShortPass.State.receive,
             behavior.Behavior.State.failed,
-            lambda: self.receiver is None or self.receiver.pos.dist_to(main.ball().pos) > 1,
+            lambda: self.receiver is None or self.ball_is_moving_away_from_receiver(),
             'receiver misses ball')
 
         self.kicker.kick_power = ShortPass.KickPower
@@ -60,6 +57,19 @@ class ShortPass(composite_behavior.CompositeBehavior):
         self.add_subbehavior(self.kicker, 'kicker', required=True)
 
         self.movers = [skills.move.Move(), skills.move.Move()]
+
+        self.last_ball_dist = 0
+
+    def ball_is_moving_away_from_receiver(self):
+        if self.receiver is not None:
+            dist = main.ball().pos.dist_to(self.receiver.pos)
+            if self.last_ball_dist > 0:
+                if dist > self.last_ball_dist:
+                    return True
+                else:
+                    return False
+            self.last_ball_dist = dist
+        return False
 
     def on_enter_setup(self):
         self.kicker.restart()
@@ -86,10 +96,10 @@ class ShortPass(composite_behavior.CompositeBehavior):
             self.kicker.enable_kick = True
 
     def on_enter_receive(self):
-        # self.remove_subbehavior('kicker')
         self.remove_subbehavior('mover0')
         self.remove_subbehavior('mover1')
         self.add_subbehavior(skills.intercept.Intercept(), 'intercept', required=True)
+        self.last_ball_dist = 0
 
     def execute_receive(self):
         r = self.subbehavior_with_name('intercept').robot
@@ -145,10 +155,3 @@ class ShortPass(composite_behavior.CompositeBehavior):
 
         return receive_points
 
-
-    # def role_requirements(self):
-    #     reqs = super().role_requirements()
-    #     if 'intercept' in reqs:
-    #         for r in role_assignment.iterate_role_requirements_tree_leaves(reqs['intercept']):
-    #             r.previous_shell_id = self.receiver.shell_id()
-    #     return reqs
