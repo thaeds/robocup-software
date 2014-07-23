@@ -144,9 +144,9 @@ class ShortPass(composite_behavior.CompositeBehavior):
         return receive_points
 
 
-    def role_requirements(self):
-        reqs = super().role_requirements()
-        if 'intercept' in reqs:
-            for r in role_assignment.iterate_role_requirements_tree_leaves(reqs['intercept']):
-                r.previous_shell_id = self.receiver.shell_id()
-        return reqs
+    # def role_requirements(self):
+    #     reqs = super().role_requirements()
+    #     if 'intercept' in reqs:
+    #         for r in role_assignment.iterate_role_requirements_tree_leaves(reqs['intercept']):
+    #             r.previous_shell_id = self.receiver.shell_id()
+    #     return reqs
